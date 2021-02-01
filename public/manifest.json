@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "manifest_version": 2,
   "description": "Manage your zoom links",
+  "permissions": [
+    "storage"
+    ],
   "icons": {
       "512": "logo512.png"
   },

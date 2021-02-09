@@ -9,7 +9,7 @@ function App() {
   const MEETINGS = [
     {
       name: "CSC252",
-      link: "https://kutztown.zoom.us/j/485974627?pwd=MVpqeklrcmJiZ2V2aXBkRVdVS21pUT09",
+      link: "https://www.google.com",
       presenter: "Dr. Carelli",
       weekdays: "T, TH",
       starttime: "3:00 PM",
@@ -17,7 +17,7 @@ function App() {
     },
     {
       name: "CSC464",
-      link: "https://kutztown.zoom.us/j/485974627?pwd=MVpqeklrcmJiZ2V2aXBkRVdVS21pUT09",
+      link: "https://www.google.com",
       presenter: "Dr. Carelli",
       weekdays: "T, TH",
       starttime: "3:00 PM",
@@ -25,7 +25,7 @@ function App() {
     },
     {
       name: "CSC320",
-      link: "https://kutztown.zoom.us/j/485974627?pwd=MVpqeklrcmJiZ2V2aXBkRVdVS21pUT09",
+      link: "https://www.google.com",
       presenter: "Dr. Carelli",
       weekdays: "T, TH",
       starttime: "3:00 PM",

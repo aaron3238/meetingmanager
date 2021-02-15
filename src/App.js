@@ -1,11 +1,26 @@
+/*global chrome*/
 import React from "react";
 import "./App.css";
-
 import Topbarnav from "./components/layout/Topbarnav.js"
 import Body from "./components/layout/Body.js"
 import Newmeetingform from "./components/layout/Newmeetingform";
 
+const handleSaveToPC = (jsonData,filename) => {
+  const fileData = JSON.stringify(jsonData);
+  const blob = new Blob([fileData], {type: "text/plain"});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.download = `${filename}.json`;
+  link.href = url;
+  link.click();
+};
+
+
+
+
 function App() {
+
+
   const MEETINGS = [
     {
       name: "CSC252",

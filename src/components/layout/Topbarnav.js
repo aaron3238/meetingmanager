@@ -25,9 +25,7 @@ export default class Topbarnav extends Component{
                 </Navbar.Brand>
               </Nav.Item>
 
-              
-  
-              <Nav.Item classname="ml-auto">
+              <Nav.Item className="ml-auto">
               <Button variant="primary" size="sm">Add</Button>
               </Nav.Item>
               

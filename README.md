@@ -7,7 +7,7 @@ A chrome extension for managing recurring meeting links for applications like zo
 
 ## Installation Instructions
 
-`sudo apt install nodejs'
+`sudo apt install nodejs`
 Clone the repo.  
 Update dependencies run `npm install` in cloned folder.
 run `npm run build`  

@@ -1,7 +1,7 @@
 /*global chrome*/
 import React from "react";
 import "./App.css";
-import Topbarnav from "./components/layout/Topbarnav.js"
+//import Topbarnav from "./components/layout/Topbarnav.js"
 import Body from "./components/layout/Body.js"
 import Newmeetingform from "./components/layout/Newmeetingform";
 
@@ -49,7 +49,6 @@ function App() {
   ];
   return (
     <div className="App">
-      <Topbarnav/>
       <Newmeetingform/>
       <Body meetings={MEETINGS}/>
     </div>

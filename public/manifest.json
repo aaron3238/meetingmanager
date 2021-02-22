@@ -1,6 +1,7 @@
 {
   "name": "Meeting Manager",
   "version": "1.0.0",
+  "content_security_policy": "script-src 'self' '<your-sha>'; object-src 'self'",
   "manifest_version": 2,
   "description": "Manage your zoom links",
   "permissions": [
@@ -11,6 +12,7 @@
   },
   "browser_action": {
       "default_icon": "logo512.png",
-      "default_popup": "popup.html"
+      "default_popup": "popup.html",
+      "default_title": "MeetingManager"
   }
 }

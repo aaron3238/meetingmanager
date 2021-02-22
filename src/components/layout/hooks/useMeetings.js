@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { v4 as uuid } from 'uuid'
-import { string } from 'yup';
 
 const getMeetings = () => {
     const meetings = window.localStorage.getItem('meetings'); // attempt to retrieve meetings

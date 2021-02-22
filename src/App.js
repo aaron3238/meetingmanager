@@ -68,7 +68,7 @@ const App = () => {
                 Starts: {meeting.startTime}{"\n"}
                 Ends: {meeting.endTime}{"\n"}
                 </Card.Text>
-                <Card.Link href={meeting.meetingLink} target="_blank">
+                <Card.Link href={meeting.meetingLink} target="_blank" >Card Link
                 </Card.Link>
                 <div>Delete <Button onClick={() => deleteMeeting(meeting.id)}/></div>
                 <Card.Text>

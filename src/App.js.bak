@@ -1,16 +1,14 @@
-
+/*global chrome*/
 import React from "react";
-import NewTopBar from "./components/layout/NewTopbar.js"
+//import Topbarnav from "./components/layout/Topbarnav.js"
 import Body from "./components/layout/Body.js"
 import Newmeetingform from "./components/layout/Newmeetingform";
 import CreateMeetingForm from "./components/layout/CreateMeetingForm";
-import EditMeetingForm from "./components/layout/EditMeetingForm";
+import useMeetings from "./components/layout/hooks/useMeetings";
 import "./App.css";
 import Meetingcard from "./components/layout/Meetingcard.js";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import useMeetings from "./components/layout/hooks/useMeetings.js"
-import { render } from "@testing-library/react";
 // const handleSaveToPC = (jsonData,filename) => {
 //   const fileData = JSON.stringify(jsonData);
 //   const blob = new Blob([fileData], {type: "text/plain"});
@@ -54,9 +52,10 @@ const App = () => {
   //     endtime: "4:20 PM",
   //   },
   // ];
+
+
   return (
     <div className="App">
-      <NewTopBar/>
       <div className="meeting-container">
         <h2>Your meetings</h2>
         <hr/>
@@ -77,16 +76,15 @@ const App = () => {
                 </Card.Text>
             </Card.Body>
             <div>
-                <Button size="sm" variant="danger" onClick={() => deleteMeeting(meeting)}>Delete</Button> {"  "}
-                <Button size="sm" variant="secondary" onClick={console.log("edit")}>Edit</Button>
+                <Button size="sm" variant="danger" onClick={() => deleteMeeting(meeting.id)}>Delete</Button> {' '}
+                <Button size="sm" variant="secondary" onClick={() => editMeeting(meeting.id)}>Edit</Button>
               </div>
-              
             </Card>
 
         ))}
       </div>
       <div>Delete all meetings (requires refresh) <Button onClick={() => window.localStorage.removeItem('meetings')}/></div>
-      {/* <CreateMeetingForm createNewMeeting={addMeeting}/> */}
+      <CreateMeetingForm createNewMeeting={addMeeting}/>
     </div>
   );
 }

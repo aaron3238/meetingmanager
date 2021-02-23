@@ -20,11 +20,17 @@ const useMeetings = () => {
         setMeetings(newMeetings);
     };
 
-    const editMeetings = (id, meeting) => { // might not work
-        const meetingIdx = meetings.findIndex(meeting => meeting.id === id);
-        const newMeetings = [...meetings];
-        newMeetings[meetingIdx] = meeting;
-        updateMeetings(newMeetings);
+    const editMeeting = (meetingName, meetingLink, presenterName, mon, tue, wed, thurs, fri, sat, sun, startTime, endTime) => {
+        const newMeeting = {meetingName, meetingLink, presenterName,  mon, tue, wed, thurs, fri, sat, sun, startTime, endTime, id: uuid()};
+        updateMeetings([...meetings, newMeeting]);
+        //updateMeetings(meetings);
+
+        // const filtered = meetings.filter(function(item){
+        //     return item.id !== id;
+            
+        // })
+        // console.log(filtered);
+        // updateMeetings(filtered);
     };
 
     const addMeeting = (meetingName, meetingLink, presenterName, mon, tue, wed, thurs, fri, sat, sun, startTime, endTime) => {
@@ -33,21 +39,18 @@ const useMeetings = () => {
     };
 
     const deleteMeeting = (id) => {
-        const currentmeetings = window.localStorage.getItem('meetings');
-        const stringifiedMeetings = JSON.stringify(currentmeetings);
         const meetingIdx = meetings.findIndex(meeting => meeting.id===id);
-        console.log(meetings[meetingIdx]);
-        console.log("meetingid: " + meetings[meetingIdx].id + " id:" + id);
-        console.log(meetings)
+        // console.log(meetings[meetingIdx]);
+        // console.log("meetingid: " + meetings[meetingIdx].id + " id:" + id);
+        // console.log(meetings)
         const filtered = meetings.filter(function(item){
             return item.id !== id;
-            
         })
-        console.log(filtered);
+        // console.log(filtered);
         updateMeetings(filtered);
     }
 
-    return [meetings, addMeeting, editMeetings, deleteMeeting];
+    return [meetings, addMeeting, editMeeting, deleteMeeting];
 
 
 };

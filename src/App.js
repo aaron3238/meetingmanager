@@ -23,67 +23,11 @@ import { render } from "@testing-library/react";
 
 
 
-<<<<<<< HEAD
-function App() {
-  const MEETINGS = [
-    {
-      name: "CSC252",
-      link: "https://www.google.com",
-      presenter: "Dr. Carelli",
-      weekdays: "T, TH",
-      starttime: "3:00 PM",
-      endtime: "4:20 PM",
-    },
-    {
-      name: "CSC464",
-      link: "https://www.google.com",
-      presenter: "Dr. Carelli",
-      weekdays: "T, TH",
-      starttime: "3:00 PM",
-      endtime: "4:20 PM",
-    },
-    {
-      name: "CSC320",
-      link: "https://www.google.com",
-      presenter: "Dr. Carelli",
-      weekdays: "T, TH",
-      starttime: "3:00 PM",
-      endtime: "4:20 PM",
-    },
-  ];
-=======
 
 const App = () => {
 
   const[meetings, addMeeting, editMeeting, deleteMeeting] = useMeetings();
 
-  // const MEETINGS = [
-  //   {
-  //     name: "CSC252",
-  //     link: "https://kutztown.zoom.us/j/485974627?pwd=MVpqeklrcmJiZ2V2aXBkRVdVS21pUT09",
-  //     presenter: "Dr. Carelli",
-  //     weekdays: "T, TH",
-  //     starttime: "3:00 PM",
-  //     endtime: "4:20 PM",
-  //   },
-  //   {
-  //     name: "CSC464",
-  //     link: "https://kutztown.zoom.us/j/485974627?pwd=MVpqeklrcmJiZ2V2aXBkRVdVS21pUT09",
-  //     presenter: "Dr. Carelli",
-  //     weekdays: "T, TH",
-  //     starttime: "3:00 PM",
-  //     endtime: "4:20 PM",
-  //   },
-  //   {
-  //     name: "CSC320",
-  //     link: "https://kutztown.zoom.us/j/485974627?pwd=MVpqeklrcmJiZ2V2aXBkRVdVS21pUT09",
-  //     presenter: "Dr. Carelli",
-  //     weekdays: "T, TH",
-  //     starttime: "3:00 PM",
-  //     endtime: "4:20 PM",
-  //   },
-  // ];
->>>>>>> master
   return (
     <div className="App">
       <NewTopBar/>

@@ -10,6 +10,7 @@ Install nodejs and npm
 `sudo apt install nodejs`  
 Clone the repo.  
 Update dependencies run `npm install` in cloned folder.  
+Building requires scripts/build.sh, so use of linux is necessary until a corresponding windows script is developed. 
 run `npm run build` to build the extension.  
 In google chrome, navigate to `chrome://extensions`  
 Enable "developer mode" in the top right.  

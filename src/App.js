@@ -1,13 +1,12 @@
 
 import React, {Component} from "react";
 import Topbarnav from "./components/layout/Topbarnav.js"
-// import EditMeetingForm from "./components/layout/EditMeetingForm";
 import "./App.css";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-import {MeetingContext} from "./components/layout/context/MeetingContext.js"
-
+import {MeetingContext} from "./components/context/MeetingContext.js"
+import EditMeetingFormClass from "./components/forms/EditMeetingFormClass.js"
 
 
 
@@ -16,6 +15,13 @@ class App extends Component{
   constructor(props){
     super(props);
 
+
+
+    this.getMeetings = () => {
+      const myMeetings = window.localStorage.getItem('meetings');
+      const parsedMeetings = JSON.parse(myMeetings);
+      return parsedMeetings;
+    }
 
     this.updateMeetings = (newMeetings) => {
         const stringifiedMeetings = JSON.stringify(newMeetings);
@@ -27,6 +33,18 @@ class App extends Component{
         this.updateMeetings([...this.state.meetings, newMeeting]);
         console.log("add");
     };
+    this.editMeeting = (updatedMeeting) => {
+      var theMeetings = this.getMeetings();
+
+      //console.log(updatedMeeting);
+      for(var i=0; i< theMeetings.length; ++i){
+        //console.log(theMeetings[i]);
+        if(theMeetings[i]['id'] === updatedMeeting.id){
+          theMeetings[i] = updatedMeeting;
+        }
+      }
+      this.updateMeetings(theMeetings);
+    }
 
     this.deleteMeeting = (id) => {
         // const meetingIdx = this.state.meetings.findIndex(meeting => meeting.id===id);
@@ -46,6 +64,7 @@ class App extends Component{
       updateMeetings: this.updateMeetings,
       addMeeting: this.addMeeting,
       deleteMeeting: this.deleteMeeting,
+      editMeeting: this.editMeeting,
     }
   }
 
@@ -90,7 +109,8 @@ class App extends Component{
               </Card.Body>
                 <div style={{ padding: "1rem" }}>
                   <Button size="sm" variant="danger" onClick={() => this.deleteMeeting(meeting.id)}>Delete</Button> {"  "}
-                  <Button size="sm" variant="secondary" onClick={console.log("edit")}>Edit</Button>
+                  {/* <Button size="sm" variant="secondary" onClick={console.log("edit")}>Edit</Button> */}
+                  <EditMeetingFormClass meeting={meeting} showModal={this.showEdit}/>
                 </div>
 
               </Card>

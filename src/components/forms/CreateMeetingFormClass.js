@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal'
 import TimePicker from 'react-time-picker' // https://github.com/wojtekmaj/react-time-picker
 import { v4 as uuid } from 'uuid'
 
-import {MeetingContext} from './context/MeetingContext.js'
+import {MeetingContext} from '../context/MeetingContext.js'
 
 export default class CreateMeetingFormClass extends Component{
     constructor(props){
@@ -38,6 +38,14 @@ export default class CreateMeetingFormClass extends Component{
             // Modal
             showModal: false,
         }
+
+        this.state = {
+            meetings: [],
+            updateMeetings: this.updateMeetings,
+            addMeeting: this.addMeeting,
+            deleteMeeting: this.deleteMeeting,
+          }
+    
         
     }
     // text change

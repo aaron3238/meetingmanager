@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
-import CreateMeetingFormClass from "./CreateMeetingFormClass.js";
+import CreateMeetingFormClass from "../forms/CreateMeetingFormClass.js";
 
 export default class Topbarnav extends Component{
     constructor(props){ // props are basically data that can be passed from the component above

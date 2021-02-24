@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import useMeetings from "./hooks/useMeetings.js"
-import CreateMeetingForm from "./CreateMeetingForm.js";
+import CreateMeetingFormClass from "./CreateMeetingFormClass.js";
 import { render } from "@testing-library/react";
 
 
@@ -18,7 +18,7 @@ const NewTopBar = () => {
     
 
     function handleAdd(){
-        render(<CreateMeetingForm createNewMeeting={addMeeting}/>);
+        render(<CreateMeetingFormClass/>);
     };
     return(
 

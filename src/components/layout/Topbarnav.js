@@ -2,12 +2,24 @@ import React, {Component} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import Button from "react-bootstrap/Button";
+
+import CreateMeetingFormClass from "./CreateMeetingFormClass.js";
 
 export default class Topbarnav extends Component{
     constructor(props){ // props are basically data that can be passed from the component above
         super(props);
+
+        this.state = {
+          showAdd: false
+        }
     }
+
+    onChange(e) {
+      this.setState({
+          [e.target.id]: e.target.value
+      })
+    }
+    
     render(){
         return(
             <Navbar bg="dark" variant="dark">
@@ -26,7 +38,7 @@ export default class Topbarnav extends Component{
               </Nav.Item>
 
               <Nav.Item className="ml-auto">
-              <Button variant="primary" size="sm">Add</Button>
+              <CreateMeetingFormClass showModal={this.showAdd}/>
               </Nav.Item>
               
             

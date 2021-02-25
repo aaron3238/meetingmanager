@@ -7,8 +7,7 @@ import Button from 'react-bootstrap/Button';
 
 import {MeetingContext} from "./components/context/MeetingContext.js"
 import EditMeetingFormClass from "./components/forms/EditMeetingFormClass.js"
-
-
+//import CardColumns from 'react-bootstrap/CardColumns'
 
 
 class App extends Component{
@@ -31,14 +30,10 @@ class App extends Component{
 
     this.addMeeting = (newMeeting) => {
         this.updateMeetings([...this.state.meetings, newMeeting]);
-        console.log("add");
     };
     this.editMeeting = (updatedMeeting) => {
       var theMeetings = this.getMeetings();
-
-      //console.log(updatedMeeting);
       for(var i=0; i< theMeetings.length; ++i){
-        //console.log(theMeetings[i]);
         if(theMeetings[i]['id'] === updatedMeeting.id){
           theMeetings[i] = updatedMeeting;
         }
@@ -54,7 +49,6 @@ class App extends Component{
         const filtered = this.state.meetings.filter(function(item){
             return item.id !== id;
         })
-        console.log(filtered);
         this.updateMeetings(filtered);
     }
 
@@ -76,20 +70,16 @@ class App extends Component{
     }
   }
 
-  // handleDelete(e) {
-  //   this.deleteMeeting
-  // }
-
   render(){
     return (
-      <div className="App">
+      <div className="App" style={{height: 600, width: 800}}>
         <MeetingContext.Provider value={this.state}>
         <Topbarnav/>
         <div style={{ padding: "1rem" }} className="meeting-container">
           <h2>Your meetings</h2>
           <hr/>
           {this.state.meetings.map(meeting => (
-              <Card style={{ width: '18rem' }}>
+              <Card variant="dark" style={{ width: '18rem' }}>
               <Card.Body>
                   <Card.Title>{meeting.meetingName}</Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">{meeting.presenterName}</Card.Subtitle>
@@ -99,13 +89,18 @@ class App extends Component{
                   </Card.Text>
                   {/* <a target="_blank" rel="noreferrer" href={meeting.meetingLink}>Link</a> */}
                   <Card.Link href={meeting.meetingLink} target="_blank" > Link </Card.Link>
+                  
                   <Card.Text>
-                    {meeting.mon}
+
+                  {Object.keys(meeting.daysOfWeek).map(function(key, value) {
+                    if (meeting.daysOfWeek[key]){
+                      return (`${key.substring(0,3)} `);
+                    }else{
+                      return "";
+                    }
+                  })}
                   </Card.Text>
-          
-                  <Card.Text>
-                    Meeting ID: {meeting.id}
-                  </Card.Text>
+                  <Card.Text>Remind prior: {meeting.minutesBeforeRemind} minutes</Card.Text>
               </Card.Body>
                 <div style={{ padding: "1rem" }}>
                   <Button size="sm" variant="danger" onClick={() => this.deleteMeeting(meeting.id)}>Delete</Button> {"  "}
@@ -116,9 +111,9 @@ class App extends Component{
               </Card>
 
           ))}
+          
         </div>
         <div>Delete all meetings (requires refresh) <Button onClick={() => window.localStorage.removeItem('meetings')}/></div>
-        {/* <CreateMeetingForm createNewMeeting={addMeeting}/> */}
         </MeetingContext.Provider>
       </div>
     );

@@ -98,30 +98,26 @@ export default class EditMeetingFormClass extends Component{
         return(
             <>
             <Button id="showEdit" variant="secondary" size="sm" onClick={this.handleShow}>Edit</Button>
-            <Modal show={this.state.showModal} enforceFocus={true} autoFocus={true} size='sm'>
+            <Modal show={this.state.showModal} enforceFocus={true} autoFocus={true}>
                 <div style={{ padding: "1rem" }}>
                 <Form>
                     <Form.Group>
                         <Form.Label>Meeting Name</Form.Label>
                         <Form.Control type="text" placeholder="Enter a name for your meeting..."
                         onChange={this.onChange} id="meetingName" value={this.state.meetingName}/>
-                        <Form.Text className="text-muted">
+                        {/* <Form.Text className="text-muted">
                         Ex: Weekly team meeting
-                        </Form.Text>
+                        </Form.Text> */}
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Zoom Meeting Link</Form.Label>
                         <Form.Control type="text" placeholder="Paste your zoom link here"
                         onChange={this.onChange} id="meetingLink" value={this.state.meetingLink}/>
-                        <Form.Text className="text-muted">
-                        </Form.Text>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Presenter Name</Form.Label>
                         <Form.Control type="text" id="presenterName" placeholder="Who is hosting the meeting?"
                         onChange={this.onChange} value={this.state.presenterName}/>
-                        <Form.Text className="text-muted">
-                        </Form.Text>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Days of the week</Form.Label>
@@ -140,9 +136,7 @@ export default class EditMeetingFormClass extends Component{
                     <Form.Group>
                         <Form.Label>Start Time: </Form.Label>{"  "}
                         <TimePicker disableClock={true} onChange={this.onChangeStartTime} value={this.state.startTime}/>
-                        <Form.Text className="text-muted">
-                        </Form.Text>
-                        <Form.Label>End Time: </Form.Label>
+                        <Form.Label>End Time: </Form.Label>{"  "}
                         <TimePicker disableClock={true} onChange={this.onChangeEndTime} value={this.state.endTime}/>
                         <Form.Label>Remind me minutes before</Form.Label> {"  "}
                         <Form.Control type="text" id="minutesBeforeRemind"
@@ -151,10 +145,10 @@ export default class EditMeetingFormClass extends Component{
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
-                    <Button variant="primary" type="submit" onClick={this.handleSubmit}>
+                    <Button variant="primary" onClick={this.handleSubmit}>
                         Submit
                     </Button>{"  "}
-                    <Button variant="secondary" type="submit" onClick={this.handleCancel}>
+                    <Button variant="secondary" onClick={this.handleCancel}>
                         Cancel
                     </Button>
                 </Form>

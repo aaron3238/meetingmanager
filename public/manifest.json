@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "manifest_version": 2,
   "description": "Manage your zoom links",
+  "background": {
+    "scripts": ["background.js"]
+  },
   "permissions": [
     "storage"
     ],

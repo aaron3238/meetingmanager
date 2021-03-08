@@ -7,6 +7,10 @@ import Button from 'react-bootstrap/Button';
 
 import {MeetingContext} from "./components/context/MeetingContext.js"
 import EditMeetingFormClass from "./components/forms/EditMeetingFormClass.js"
+
+
+/* global chrome */
+
 //import CardColumns from 'react-bootstrap/CardColumns'
 
 
@@ -17,14 +21,27 @@ class App extends Component{
 
 
     this.getMeetings = () => {
-      const myMeetings = window.localStorage.getItem('meetings');
-      const parsedMeetings = JSON.parse(myMeetings);
-      return parsedMeetings;
+      const myMeetings = chrome.storage.sync.get(["meetings"], ({ syncedMeetings }) => {
+        console.log("get in getMeetings");
+        console.log(syncedMeetings);
+        const parsedMeetings = JSON.parse(syncedMeetings);
+        return parsedMeetings;
+      });
+      console.log("mymeetings in getmeetings");
+      console.log(myMeetings);
+      console.log("bytes in use");
+      chrome.storage.sync.getBytesInUse(["meetings"], () => {console.log("bytes in use running")});
+
     }
 
     this.updateMeetings = (newMeetings) => {
         const stringifiedMeetings = JSON.stringify(newMeetings);
-        window.localStorage.setItem('meetings', stringifiedMeetings);
+        // window.localStorage.setItem('meetings', stringifiedMeetings);
+        chrome.storage.sync.set({meetings: stringifiedMeetings}, ()=>{
+          console.log("set");
+          console.log(stringifiedMeetings);
+          console.log("set meetings");
+        });
         this.setState({meetings: newMeetings});
     };
 
@@ -63,11 +80,19 @@ class App extends Component{
   }
 
   componentWillMount(){
-    const meetings = window.localStorage.getItem('meetings');
-    const parsed = JSON.parse(meetings)
-    if(meetings){
-      this.setState({meetings: parsed})
-    }
+    // const meetings = window.localStorage.getItem('meetings');
+    //chrome.storage.sync.clear();
+    
+    chrome.storage.sync.get(["meetings"], ({ syncedMeetings }) => {
+      console.log("get in willmount");
+      console.log("getWillMount" + syncedMeetings);
+      console.log(JSON.stringify(syncedMeetings));
+      if(syncedMeetings){
+        const parsed = JSON.parse(syncedMeetings)
+        this.setState({meetings: parsed})
+      }
+    });
+
   }
 
   render(){
@@ -91,7 +116,6 @@ class App extends Component{
                   <Card.Link href={meeting.meetingLink} target="_blank" > Link </Card.Link>
                   
                   <Card.Text>
-
                   {Object.keys(meeting.daysOfWeek).map(function(key, value) {
                     if (meeting.daysOfWeek[key]){
                       return (`${key.substring(0,3)} `);
@@ -113,7 +137,7 @@ class App extends Component{
           ))}
           
         </div>
-        <div>Delete all meetings (requires refresh) <Button onClick={() => window.localStorage.removeItem('meetings')}/></div>
+        <div>Delete all meetings (requires refresh) <Button onClick={() => {window.localStorage.removeItem('meetings'); chrome.storage.sync.clear();}}/></div>
         </MeetingContext.Provider>
       </div>
     );

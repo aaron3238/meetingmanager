@@ -10,6 +10,8 @@ import EditMeetingFormClass from "./components/forms/EditMeetingFormClass.js"
 import { string } from "yup";
 
 
+
+
 /* global chrome */
 
 //import CardColumns from 'react-bootstrap/CardColumns'
@@ -30,11 +32,12 @@ class App extends Component{
       //   return parsedMeetings;
       // });
 
-      chrome.storage.sync.get('meetings', function(obj){
-        const parsedMeetings = JSON.parse(obj);
-        console.log("parsed meetings");
-        console.log(parsedMeetings);
-        return parsedMeetings;
+      chrome.storage.sync.get('meetings', (obj) => {
+        console.log("get returns");
+        console.log(obj);
+        console.log("get length");
+        console.log(obj['meetings'].length);
+        return obj['meetings'];
       })
 
     }
@@ -52,11 +55,7 @@ class App extends Component{
           console.log(save);
           console.log("set meetings");
         });
-        console.log("after the set onto the get");
-        chrome.storage.sync.get('meetings', function(obj){
-          console.log("about to log the get");
-          console.log("meetings", obj);
-        })
+
 
         this.setState({meetings: newMeetings});
     };
@@ -65,13 +64,19 @@ class App extends Component{
         this.updateMeetings([...this.state.meetings, newMeeting]);
     };
     this.editMeeting = (updatedMeeting) => {
-      var theMeetings = this.getMeetings();
-      for(var i=0; i< theMeetings.length; ++i){
-        if(theMeetings[i]['id'] === updatedMeeting.id){
-          theMeetings[i] = updatedMeeting;
+      // var theMeetings = this.getMeetings();
+
+      chrome.storage.sync.get('meetings', (obj) => {
+        var theMeetings = obj['meetings'];
+        for(var i=0; i< theMeetings.length; ++i){
+          if(theMeetings[i]['id'] === updatedMeeting.id){
+            theMeetings[i] = updatedMeeting;
+          }
         }
-      }
-      this.updateMeetings(theMeetings);
+        this.updateMeetings(theMeetings);
+      })
+
+
     }
 
     this.deleteMeeting = (id) => {
@@ -92,6 +97,12 @@ class App extends Component{
       addMeeting: this.addMeeting,
       deleteMeeting: this.deleteMeeting,
       editMeeting: this.editMeeting,
+      divStyle: {
+        padding: "1rem",
+        'overflow-y': "scroll",
+        height: "550px",
+        'overflow-x': "hidden"
+      }
     }
   }
 
@@ -103,15 +114,14 @@ class App extends Component{
     chrome.storage.sync.get('meetings', (obj) => {
       console.log("in willMount")
       console.log("obj");
-      console.log(obj);
-      // const parsedMeetings = JSON.parse(obj);
+      console.log(obj['meetings']);
       // console.log(parsedMeetings);
       // console.log(typeof(parsedMeetings));
-      if(obj){
+      if(obj.hasOwnProperty('meetings')){
         console.log("before set state");
         console.log(obj);
         console.log({meetings: obj});
-        this.setState({meetings: JSON.stringify(obj)})
+        this.setState({meetings: obj['meetings']})
       }
   
 
@@ -121,10 +131,10 @@ class App extends Component{
 
   render(){
     return (
-      <div className="App" style={{height: 600, width: 800}}>
+      <div className="App" style={{height: 600, width: 800, "overflow": "hidden"}}>
         <MeetingContext.Provider value={this.state}>
         <Topbarnav/>
-        <div style={{ padding: "1rem" }} className="meeting-container">
+        <div style={this.state.divStyle} className="meeting-container">
           <h2>Your meetings</h2>
           <hr/>
           {this.state.meetings.map(meeting => (
@@ -159,9 +169,8 @@ class App extends Component{
               </Card>
 
           ))}
-          
+          Delete all meetings (requires refresh) <Button onClick={() => {window.localStorage.removeItem('meetings'); chrome.storage.sync.clear();}}/>
         </div>
-        <div>Delete all meetings (requires refresh) <Button onClick={() => {window.localStorage.removeItem('meetings'); chrome.storage.sync.clear();}}/></div>
         </MeetingContext.Provider>
       </div>
     );

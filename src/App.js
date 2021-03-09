@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 
 import {MeetingContext} from "./components/context/MeetingContext.js"
 import EditMeetingFormClass from "./components/forms/EditMeetingFormClass.js"
+import { string } from "yup";
 
 
 /* global chrome */
@@ -21,27 +22,42 @@ class App extends Component{
 
 
     this.getMeetings = () => {
-      const myMeetings = chrome.storage.sync.get(["meetings"], ({ syncedMeetings }) => {
-        console.log("get in getMeetings");
-        console.log(syncedMeetings);
-        const parsedMeetings = JSON.parse(syncedMeetings);
+      // const myMeetings = chrome.storage.sync.get('meetings', ({ syncedMeetings }) => {
+      //   console.log("get in getMeetings syncedMeetings next");
+        
+      //   const parsedMeetings = JSON.stringify(syncedMeetings);
+      //   console.log(parsedMeetings);
+      //   return parsedMeetings;
+      // });
+
+      chrome.storage.sync.get('meetings', function(obj){
+        const parsedMeetings = JSON.parse(obj);
+        console.log("parsed meetings");
+        console.log(parsedMeetings);
         return parsedMeetings;
-      });
-      console.log("mymeetings in getmeetings");
-      console.log(myMeetings);
-      console.log("bytes in use");
-      chrome.storage.sync.getBytesInUse(["meetings"], () => {console.log("bytes in use running")});
+      })
 
     }
 
     this.updateMeetings = (newMeetings) => {
         const stringifiedMeetings = JSON.stringify(newMeetings);
         // window.localStorage.setItem('meetings', stringifiedMeetings);
-        chrome.storage.sync.set({meetings: stringifiedMeetings}, ()=>{
+        var save = {}
+        console.log("newmeetings" + newMeetings);
+        console.log("stringifiedmeetings" + stringifiedMeetings);
+        save["meetings"] = newMeetings;
+
+        chrome.storage.sync.set(save, ()=>{
           console.log("set");
-          console.log(stringifiedMeetings);
+          console.log(save);
           console.log("set meetings");
         });
+        console.log("after the set onto the get");
+        chrome.storage.sync.get('meetings', function(obj){
+          console.log("about to log the get");
+          console.log("meetings", obj);
+        })
+
         this.setState({meetings: newMeetings});
     };
 
@@ -83,14 +99,22 @@ class App extends Component{
     // const meetings = window.localStorage.getItem('meetings');
     //chrome.storage.sync.clear();
     
-    chrome.storage.sync.get(["meetings"], ({ syncedMeetings }) => {
-      console.log("get in willmount");
-      console.log("getWillMount" + syncedMeetings);
-      console.log(JSON.stringify(syncedMeetings));
-      if(syncedMeetings){
-        const parsed = JSON.parse(syncedMeetings)
-        this.setState({meetings: parsed})
+
+    chrome.storage.sync.get('meetings', (obj) => {
+      console.log("in willMount")
+      console.log("obj");
+      console.log(obj);
+      // const parsedMeetings = JSON.parse(obj);
+      // console.log(parsedMeetings);
+      // console.log(typeof(parsedMeetings));
+      if(obj){
+        console.log("before set state");
+        console.log(obj);
+        console.log({meetings: obj});
+        this.setState({meetings: JSON.stringify(obj)})
       }
+  
+
     });
 
   }

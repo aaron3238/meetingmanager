@@ -6,6 +6,9 @@ body {
 }
 .meetingContainer {
   padding: 1rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 550px;
 }
 
 /* https://tobiasahlin.com/blog/how-to-animate-box-shadow/ */
@@ -25,8 +28,9 @@ body {
   transform: scale(1.1, 1.1);
 }
 .App {
-  height: 600;
-  width: 800;
+  height: 600px;
+  width: 800px;
+  overflow: hidden;
 }
 .Link {
   font-size: large;

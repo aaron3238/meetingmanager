@@ -4,9 +4,12 @@ import Topbarnav from "./components/layout/Topbarnav.js"
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Styles from './App.module.css';
-
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip'
+import Popover from 'react-bootstrap/Popover'
 import {MeetingContext} from "./components/context/MeetingContext.js"
 import EditMeetingFormClass from "./components/forms/EditMeetingFormClass.js"
+
 //import CardColumns from 'react-bootstrap/CardColumns'
 
 
@@ -51,7 +54,9 @@ class App extends Component{
         })
         this.updateMeetings(filtered);
     }
-
+    this.redirectUrl = (url) => {
+      window.open(url);
+    }
 
     this.state = {
       meetings: [],
@@ -79,6 +84,7 @@ class App extends Component{
           <h2>Your Meetings</h2>
           <hr/>
           {this.state.meetings.map(meeting => (
+            
               <Card variant="dark" className={Styles.Card}>
               <Card.Body className={Styles.meetingInfo}>
                   <Card.Title>{meeting.meetingName}</Card.Title>
@@ -88,8 +94,9 @@ class App extends Component{
                   Ends: {meeting.endTime}{"\n"}
                   </Card.Text>
                   {/* <a target="_blank" rel="noreferrer" href={meeting.meetingLink}>Link</a> */}
+                  <OverlayTrigger overlay={<Tooltip id="popover-basic">Click to join your meeting.</Tooltip>}>
                   <Card.Link href={meeting.meetingLink} target="_blank" className={Styles.Link}> Join Meeting </Card.Link>
-                  
+                  </OverlayTrigger>
                   <Card.Text>
 
                   {Object.keys(meeting.daysOfWeek).map(function(key, value) {
@@ -109,11 +116,12 @@ class App extends Component{
                 </div>
 
               </Card>
+            
 
           ))}
           
         </div>
-        <div className={Styles.Bottom}>Delete all meetings (requires refresh) <Button onClick={() => window.localStorage.removeItem('meetings')}/></div>
+        {/* <div className={Styles.Bottom}>Delete all meetings (requires refresh) <Button onClick={() => window.localStorage.removeItem('meetings')}/></div> */}
         </MeetingContext.Provider>
       </div>
     );

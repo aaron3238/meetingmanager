@@ -11,6 +11,9 @@
 # production
 /build
 /dist
+dist.crx
+dist.pem
+dist.zip
 
 # misc
 .DS_Store

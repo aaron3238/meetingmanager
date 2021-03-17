@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import Styles from './App.module.css';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
-import Popover from 'react-bootstrap/Popover'
 import {MeetingContext} from "./components/context/MeetingContext.js"
 import EditMeetingFormClass from "./components/forms/EditMeetingFormClass.js"
 

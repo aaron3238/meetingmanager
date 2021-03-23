@@ -4,29 +4,46 @@ import React, { createContext, useState, useEffect, useMemo, useContext } from "
 
 export const AuthDataContext = createContext(null);
 
-const initialAuthData = {};
-
 export const AuthContext = props => {
-    const [authData, setAuthData] = useState(initialAuthData);
+    var authData = null
 
     /* The first time the component is rendered, it tries to
     * fetch the auth data from a source, like a cookie or
     * the localStorage.
     */
-    useEffect(() => {
-        const currentAuthData = window.localStorage.user;
+
+    //useEffect(() => {
+    //    const currentAuthData = window.localStorage.getItem('user');
+    //    // console.log(JSON.parse(currentAuthData));
+    //    console.log("Effect Used" + currentAuthData);
+    //    if (currentAuthData) {
+    //        console.log("Data set");
+    //        setAuthData(currentAuthData);
+    //    }
+    //}, []);
+
+    const isLoggedIn = () => {
+        const currentAuthData = window.localStorage.getItem('user');
+        console.log("Effect Used" + currentAuthData);
         if (currentAuthData) {
-        setAuthData(currentAuthData);
+            authData = currentAuthData;
+        } else {
+            authData = null;
         }
-    }, []);
+    }
 
-    const onLogout = () => setAuthData(initialAuthData);
+    const onLogout = () => authData = undefined;
 
-    const onLogin = newAuthData => setAuthData(newAuthData);
+    const onLogin = newAuthData => {
+        console.log("The HOOKS" + newAuthData);
+        authData = newAuthData;
+        window.localStorage.setItem("user", newAuthData);
+    }
 
-    // const authDataValue = useMemo({ ...authData, onLogin, onLogout }, [authData]);
 
-    return <AuthDataContext.Provider value={{ ...authData, onLogin, onLogout }} {...props} />;
+    //const authDataValue = useMemo({...authData, onLogin, onLogout }, [authData]);
+
+    return <AuthDataContext.Provider value={{isLoggedIn, onLogin, onLogout}} {...props} />;
 };
 
 export const useAuthDataContext = () => useContext(AuthDataContext);

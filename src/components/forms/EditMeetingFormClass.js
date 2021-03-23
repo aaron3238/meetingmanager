@@ -4,8 +4,9 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import TimePicker from 'react-time-picker' // https://github.com/wojtekmaj/react-time-picker
+import axios from 'axios';
+import config from '../../config'
 
-import {MeetingContext} from '../context/MeetingContext.js'
 
 export default class EditMeetingFormClass extends Component{
     constructor(props){
@@ -27,7 +28,7 @@ export default class EditMeetingFormClass extends Component{
             endTime: props.meeting.endTime,
             daysOfWeek: {...props.meeting.daysOfWeek},
             minutesBeforeRemind: props.meeting.minutesBeforeRemind,
-            id: props.meeting.id,
+            _id: props.meeting._id,
             showModal: false,
         }
         
@@ -84,10 +85,16 @@ export default class EditMeetingFormClass extends Component{
             endTime: this.state.endTime,
             daysOfWeek: this.state.daysOfWeek,
             minutesBeforeRemind: this.state.minutesBeforeRemind,
-            id: this.state.id
+            user: this.props.token,
+            _id: this.state._id
         }
 
-        this.context.editMeeting(updatedMeeting);
+        axios.post(config.backendURL + "/meeting/" + this.state._id, updatedMeeting)
+        .then(res => {
+            this.props.updateData(this.props.token)
+            console.log("Updated Meeting")
+        })
+
         this.setState({
                 showModal: false
         })
@@ -158,5 +165,3 @@ export default class EditMeetingFormClass extends Component{
             )
         }
 }
-
-EditMeetingFormClass.contextType = MeetingContext;

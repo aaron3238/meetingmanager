@@ -4,9 +4,9 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import TimePicker from 'react-time-picker' // https://github.com/wojtekmaj/react-time-picker
-import { v4 as uuid } from 'uuid'
-
-import {MeetingContext} from '../context/MeetingContext.js'
+import axios from 'axios';
+import config from '../../config'
+import useToken from '../hooks/useToken'
 
 export default class CreateMeetingFormClass extends Component{
     constructor(props){
@@ -20,11 +20,11 @@ export default class CreateMeetingFormClass extends Component{
         this.onChangeStartTime = this.onChangeStartTime.bind(this);
         this.onChangeEndTime = this.onChangeEndTime.bind(this);
         this.state = {
-            meetingName: '',
-            meetingLink: '',
-            presenterName: '',
-            startTime: '',
-            endTime: '',
+            meetingName: 'Test',
+            meetingLink: 'https://www.google.com',
+            presenterName: 'Dr. Patrick Star',
+            startTime: '10:00',
+            endTime: '11:00',
             daysOfWeek: {
                 Monday: false,
                 Tuesday: false,
@@ -51,9 +51,9 @@ export default class CreateMeetingFormClass extends Component{
     // handles days of the week checkbox changes
     onChangeDow(e){
         var updateState = {...this.state.daysOfWeek}
-        console.log(updateState);
+        // console.log(updateState);
         updateState[e.target.id] = e.target.checked
-        console.log({...updateState});
+        // console.log({...updateState});
         this.setState({
             daysOfWeek: {...updateState}
         })
@@ -61,8 +61,8 @@ export default class CreateMeetingFormClass extends Component{
 
     // handle start time change
     onChangeStartTime(date){
-        console.log(typeof(date))
-        console.log(date);
+        // console.log(typeof(date))
+        // console.log(date);
         this.setState({
             startTime: date
         })
@@ -97,28 +97,15 @@ export default class CreateMeetingFormClass extends Component{
             endTime: this.state.endTime,
             daysOfWeek: this.state.daysOfWeek,
             minutesBeforeRemind: this.state.minutesBeforeRemind,
-            id: uuid()
+            user: this.props.token
         }
 
-        this.context.addMeeting(newMeeting);
+        axios.post(config.backendURL + "/meeting" , newMeeting)
+
         this.setState({
-            showModal: false,
-            meetingName: '',
-            meetingLink: '',
-            presenterName: '',
-            startTime: '',
-            endTime: '',
-            daysOfWeek: {
-                Monday: false,
-                Tuesday: false,
-                Wednesday: false,
-                Thursday: false,
-                Friday: false,
-                Saturday: false,
-                Sunday: false
-            }
+            showModal: false
         })
-        
+        this.props.updateData(this.props.token);
 
     }
     render(){
@@ -183,5 +170,3 @@ export default class CreateMeetingFormClass extends Component{
             )
         }
 }
-
-CreateMeetingFormClass.contextType = MeetingContext;

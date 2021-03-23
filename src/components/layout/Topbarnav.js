@@ -38,7 +38,7 @@ export default class Topbarnav extends Component{
               </Nav.Item>
 
               <Nav.Item className="ml-auto">
-              <CreateMeetingFormClass showModal={this.showAdd}/>
+              <CreateMeetingFormClass updateData={this.props.updateData} token={this.props.token} showModal={this.showAdd}/>
               </Nav.Item>
               
             

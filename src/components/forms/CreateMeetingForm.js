@@ -24,6 +24,7 @@ const CreateMeetingForm = ({createNewMeeting}) => {
         if(meetingName){
             // console.log(createNewMeeting(meetingName, meetingLink, presenterName, Dow, startTime, endTime))
 
+    
                 showModal=false;
         }else{
             alert("Please enter a meeting name.");

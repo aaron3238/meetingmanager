@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import LoginFormClass from "../forms/LoginFormClass.js"
+import LoginForm from "../forms/LoginForm.js"
 
 
 export default class Landing extends Component{
@@ -10,7 +10,7 @@ export default class Landing extends Component{
     render(){
         return(
             <div>
-            <LoginFormClass/>
+            <LoginForm setToken={this.props.setToken}/>
             </div>
         )
     }

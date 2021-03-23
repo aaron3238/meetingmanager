@@ -5,73 +5,53 @@ import Button from 'react-bootstrap/Button';
 import Styles from '../../App.module.css';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
-import {MeetingContext} from "../context/MeetingContext.js"
+import config from '../../config.json'
+import axios from 'axios'
 import EditMeetingFormClass from "../forms/EditMeetingFormClass.js"
 
 // import Newmeetingform from './Newmeetingform.js';
 export default class Body extends Component{
     constructor(props){ // props are basically data that can be passed from the component above
         super(props);
-        this.getMeetings = () => {
-          const myMeetings = window.localStorage.getItem('meetings');
-          const parsedMeetings = JSON.parse(myMeetings);
-          return parsedMeetings;
-        }
 
-        this.updateMeetings = (newMeetings) => {
-            const stringifiedMeetings = JSON.stringify(newMeetings);
-            window.localStorage.setItem('meetings', stringifiedMeetings);
-            this.setState({meetings: newMeetings});
-        };
+        this.updateData = this.updateData.bind(this);
+        this.deleteMeeting = this.deleteMeeting.bind(this);
 
-        this.addMeeting = (newMeeting) => {
-            this.updateMeetings([...this.state.meetings, newMeeting]);
-        };
-        this.editMeeting = (updatedMeeting) => {
-          var theMeetings = this.getMeetings();
-          for(var i=0; i< theMeetings.length; ++i){
-            if(theMeetings[i]['id'] === updatedMeeting.id){
-              theMeetings[i] = updatedMeeting;
-            }
-          }
-          this.updateMeetings(theMeetings);
-        }
-
-        this.deleteMeeting = (id) => {
-            // const meetingIdx = this.state.meetings.findIndex(meeting => meeting.id===id);
-            // console.log(meetings[meetingIdx]);
-            // console.log("meetingid: " + meetings[meetingIdx].id + " id:" + id);
-            // console.log(meetings)
-            const filtered = this.state.meetings.filter(function(item){
-                return item.id !== id;
-            })
-            this.updateMeetings(filtered);
-        }
         this.redirectUrl = (url) => {
           window.open(url);
         }
 
         this.state = {
           meetings: [],
-          updateMeetings: this.updateMeetings,
-          addMeeting: this.addMeeting,
-          deleteMeeting: this.deleteMeeting,
-          editMeeting: this.editMeeting,
+          token: props.token
         }
     }
 
   componentWillMount(){
-    const meetings = window.localStorage.getItem('meetings');
-    const parsed = JSON.parse(meetings)
-    if(meetings){
-      this.setState({meetings: parsed})
-    }
+    this.updateData(this.props.token);
+  }
+  // delete a meeting
+  deleteMeeting(meetingID) {
+    axios.delete(config.backendURL + "/meeting/" + meetingID);
+    this.updateData(this.state.token);
+  }
+
+  // refresh cards for meetings
+  async updateData(token) {
+    await new Promise(r => setTimeout(r, 20)); // sleep for 20ms to avoid refresh issues
+    var self = this;
+    axios.get(config.backendURL + '/meeting/byuser/' + token)
+    .then(res => {
+        if (res.data != null) {
+          this.setState({meetings: res.data});
+        }
+    })
   }
 
     render(){
         return(
         <>
-        <Topbarnav/>
+        <Topbarnav updateData={this.updateData} token={this.props.token}/>
             <div className={Styles.meetingContainer}>
               <h2>Your Meetings</h2>
               <hr/>
@@ -100,9 +80,9 @@ export default class Body extends Component{
                       <Card.Text>Remind prior: {meeting.minutesBeforeRemind} minutes</Card.Text>
                   </Card.Body>
                     <div style={{ padding: "1rem" }}>
-                      <Button size="sm" variant="danger" onClick={() => this.deleteMeeting(meeting.id)}>Delete</Button> {"  "}
+                      <Button size="sm" variant="danger" onClick={() => this.deleteMeeting(meeting._id)}>Delete</Button> {"  "}
                       {/* <Button size="sm" variant="secondary" onClick={console.log("edit")}>Edit</Button> */}
-                      <EditMeetingFormClass meeting={meeting} showModal={this.showEdit}/>
+                      <EditMeetingFormClass updateData={ this.updateData } token={ this.props.token } meeting={meeting} showModal={this.showEdit}/>
                     </div>
                   </Card>
               ))}
@@ -111,6 +91,3 @@ export default class Body extends Component{
         )
     }
 }
-
-
-Body.contextType = MeetingContext;

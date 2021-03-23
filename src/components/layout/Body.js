@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Topbarnav from "../layout/Topbarnav.js"
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import Styles from '../../App.module.css';
+import Styles from '../../Body.module.css';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
 import config from '../../config.json'
@@ -50,7 +50,7 @@ export default class Body extends Component{
 
     render(){
         return(
-        <>
+        <div className={Styles.App}>
         <Topbarnav updateData={this.updateData} token={this.props.token}/>
             <div className={Styles.meetingContainer}>
               <h2>Your Meetings</h2>
@@ -87,7 +87,7 @@ export default class Body extends Component{
                   </Card>
               ))}
             </div>
-        </>
+        </div>
         )
     }
 }

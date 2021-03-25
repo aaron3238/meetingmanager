@@ -7,7 +7,6 @@ import TimePicker from 'react-time-picker' // https://github.com/wojtekmaj/react
 import { v4 as uuid } from 'uuid'
 
 import {MeetingContext} from '../context/MeetingContext.js'
-
 export default class CreateMeetingFormClass extends Component{
     constructor(props){
         super(props);
@@ -42,6 +41,33 @@ export default class CreateMeetingFormClass extends Component{
     
         
     }
+
+
+    isvalidURL(str) {
+        var pattern = new RegExp(/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+        ); 
+        return pattern.test(str);
+      }
+    isnotempty(str) {
+        var pattern = new RegExp(/^(\w+\S+)$/
+        ); 
+        return pattern.test(str);
+      }
+
+    allisfalse(DOW)
+    {
+        for (let i = 0; i < DOW.length; i++) {
+            if (numbers[i] == true) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+      
+
+
+
     // text change
     onChange(e) {
         this.setState({
@@ -89,7 +115,44 @@ export default class CreateMeetingFormClass extends Component{
     }
     // handles the submit button at the buttom of the form
     handleSubmit(){
+        var link = this.isvalidURL(this.state.meetingLink)
+        var isnote = this.isnotempty(this.state.meetingName)
+        var pname = this.isnotempty(this.state.presenterName)
+        var allfalse = this.allisfalse(this.state.daysOfWeek)
+
+
+        if (isnote || pname === false) {
+            alert("you frogot a field")
+            
+
+          }
+        
+        
+        
+    
+        
+
+
+
+
+        console.log(this.state.daysOfWeek)
+        
+
+
+        if (link === false) {
+            alert("Please fix your link, it needs https, http or ftp")
+            
+
+          }
+
+        
+
+
+
+
+          
         const newMeeting = {
+            
             meetingName: this.state.meetingName,
             meetingLink: this.state.meetingLink,
             presenterName: this.state.presenterName,
@@ -99,8 +162,14 @@ export default class CreateMeetingFormClass extends Component{
             minutesBeforeRemind: this.state.minutesBeforeRemind,
             id: uuid()
         }
+        
 
+
+        
         this.context.addMeeting(newMeeting);
+
+
+
         this.setState({
             showModal: false,
             meetingName: '',

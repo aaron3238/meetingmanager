@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import ProfilePage from "../forms/ProfilePage.js"
 
 import CreateMeetingFormClass from "../forms/CreateMeetingFormClass.js";
 
@@ -38,6 +39,7 @@ export default class Topbarnav extends Component{
               </Nav.Item>
 
               <Nav.Item className="ml-auto">
+              <ProfilePage token={this.props.token}></ProfilePage> {'  '}
               <CreateMeetingFormClass updateData={this.props.updateData} token={this.props.token} showModal={this.showAdd}/>
               </Nav.Item>
               

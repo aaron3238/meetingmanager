@@ -38,7 +38,7 @@ export default class Body extends Component{
 
   // refresh cards for meetings
   async updateData(token) {
-    await new Promise(r => setTimeout(r, 20)); // sleep for 20ms to avoid refresh issues
+    await new Promise(r => setTimeout(r, 40)); // sleep for 40ms to avoid refresh issues
     var self = this;
     axios.get(config.backendURL + '/meeting/byuser/' + token)
     .then(res => {

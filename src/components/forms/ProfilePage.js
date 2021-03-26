@@ -1,4 +1,4 @@
-import React, {useContext, Component} from "react";
+import React, {useContext, Component, useEffect} from "react";
 import { Form } from "react-bootstrap";
 import axios from "axios";
 import Button from 'react-bootstrap/Button';
@@ -7,38 +7,64 @@ import Modal from 'react-bootstrap/Modal'
 import config from "../../config.json"
 import PropTypes from 'prop-types';
 
-async function loginUser(credentials) {
-    return axios.post(config.backendURL + "/user/login", credentials)
+async function getUser(id) {
+    return axios.get(config.backendURL + "/user/" + id)
     .then(res => res.data)
 }
 
-export default function Login({ setToken }) {
-    const [email, setEmail] = React.useState('aaronp@gmail.com');
-    const [password, setPassword] = React.useState('yomamma');
+async function editUser(user){
+    return axios.post(config.backendURL + "/user/" + user._id, user)
+    .then(res => res.data)
+}
+
+export default function Profile({token}){
+
+
+
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [fullName, setfullName] = React.useState('');
     const [showModal, setshowModal] = React.useState(false);
+
+    useEffect(() =>{
+        getUser(token)
+        .then(user => {
+            setEmail(user.email);
+            setPassword(user.password);
+            setfullName(user.name);
+        })
+    }, []);
 
     const submit = async e => {
         e.preventDefault();
-        const token = await loginUser({
+        const updatedUser = {
             email: email,
-            password: password
-        });
-        setToken(token);
-        window.location = ""
+            name: fullName,
+            password: password,
+            _id: token
+        }
+        editUser(updatedUser);
+        setshowModal(false);
     }
-    
+
     return(
         <>
-            <Button id="showAdd" variant="primary" size="sm" onClick={() => setshowModal(true)}>Login</Button>
+            <Button id="showAdd" variant="secondary" size="sm" onClick={() => setshowModal(true)}>Profile</Button>
             <Modal show={showModal} enforceFocus={true} autoFocus={true}>
                 <div style={{ padding: "1rem" }}>
                     <Form>
-                        <h2>Login</h2>
+                        <h2>Edit Profile</h2>
                         <Form.Group>
                             <Form.Label>
                                 Email 
                             </Form.Label>
                             <Form.Control type="text" placeholder="someone@somewhere.com" value={email} onChange={e => setEmail(e.target.value)} id="email"/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>
+                                Full Name
+                            </Form.Label>
+                            <Form.Control type="text" placeholder="John Smith" value={fullName} onChange={e => setfullName(e.target.value)} id="fullName"/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>
@@ -56,9 +82,9 @@ export default function Login({ setToken }) {
                 </div>
             </Modal>
         </>
-    );
+    )
 }
 
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired
+Profile.propTypes = {
+    token: PropTypes.string.isRequired
 }

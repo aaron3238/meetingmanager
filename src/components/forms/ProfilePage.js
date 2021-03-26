@@ -49,7 +49,7 @@ export default function Profile({token}){
 
     return(
         <>
-            <Button id="showAdd" variant="secondary" size="sm" onClick={() => setshowModal(true)}>Profile</Button>
+            <Button id="showAdd" variant="info" size="sm" onClick={() => setshowModal(true)}>Profile</Button>
             <Modal show={showModal} enforceFocus={true} autoFocus={true}>
                 <div style={{ padding: "1rem" }}>
                     <Form>

@@ -44,7 +44,7 @@ export default function Login({ setToken }) {
                             <Form.Label>
                                 Password 
                             </Form.Label>
-                            <Form.Control type="text" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
+                            <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
                         </Form.Group>
                         <Button onClick={submit} variant="primary">
                             Submit

@@ -4,6 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import ProfilePage from "../forms/ProfilePage.js"
 import Button from "react-bootstrap/Button";
+import HelpPage from "../HelpPage.js";
 
 import CreateMeetingFormClass from "../forms/CreateMeetingFormClass.js";
 
@@ -41,7 +42,10 @@ export default class Topbarnav extends Component{
               </Nav.Item>
               <Nav.Item className="mr-auto">
                   <ProfilePage token={this.props.token}></ProfilePage> {'  '}
-                  <Button size="sm" variant="secondary" onClick={()=>{window.localStorage.removeItem("token"); window.location=""}}>Logout</Button> {'  '}
+                  <Button size="sm" variant="secondary" 
+                    onClick={()=>{window.localStorage.removeItem("token"); window.location=""}}>Logout
+                  </Button> {'  '}
+                  <HelpPage></HelpPage>
               </Nav.Item>
 
 

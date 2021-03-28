@@ -66,7 +66,7 @@ export default class Body extends Component{
                       </Card.Text>
                       {/* <a target="_blank" rel="noreferrer" href={meeting.meetingLink}>Link</a> */}
                       <OverlayTrigger overlay={<Tooltip id="popover-basic">Click to join your meeting.</Tooltip>}>
-                      <Card.Link href={meeting.meetingLink} target="_blank" className={Styles.Link}> Join Meeting </Card.Link>
+                      <Card.Link href={meeting.meetingLink} target="_blank" className={Styles.Link}> <Button size="sm" variant="success">Join Meeting</Button> </Card.Link>
                       </OverlayTrigger>
                       <Card.Text>
                       {Object.keys(meeting.daysOfWeek).map(function(key, value) {

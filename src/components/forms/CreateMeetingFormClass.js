@@ -8,7 +8,35 @@ import axios from 'axios';
 import config from '../../config'
 import useToken from '../hooks/useToken'
 
+
+
+
+
+
 export default class CreateMeetingFormClass extends Component{
+
+
+    initialState = {
+        meetingName: '',
+        meetingLink: '',
+        presenterName: '',
+        startTime: '',
+        endTime: '',
+        daysOfWeek: {
+            Monday: false,
+            Tuesday: false,
+            Wednesday: false,
+            Thursday: false,
+            Friday: false,
+            Saturday: false,
+            Sunday: false
+        },
+        minutesBeforeRemind: 30,
+        // Modal
+        showModal: false,
+    }
+
+
     constructor(props){
         super(props);
 
@@ -19,25 +47,7 @@ export default class CreateMeetingFormClass extends Component{
         this.onChangeDow = this.onChangeDow.bind(this);
         this.onChangeStartTime = this.onChangeStartTime.bind(this);
         this.onChangeEndTime = this.onChangeEndTime.bind(this);
-        this.state = {
-            meetingName: 'Test',
-            meetingLink: 'https://www.google.com',
-            presenterName: 'Dr. Patrick Star',
-            startTime: '10:00',
-            endTime: '11:00',
-            daysOfWeek: {
-                Monday: false,
-                Tuesday: false,
-                Wednesday: false,
-                Thursday: false,
-                Friday: false,
-                Saturday: false,
-                Sunday: false
-            },
-            minutesBeforeRemind: 30,
-            // Modal
-            showModal: false,
-        }
+        this.state = {...this.initialState};
 
 
    
@@ -170,10 +180,11 @@ export default class CreateMeetingFormClass extends Component{
             user: this.props.token
         }
 
-        axios.post(config.backendURL + "/meeting" , newMeeting)
-
+        axios.post(config.backendURL + "/meeting" , newMeeting);
+        // clears form and hides modal on submit
         this.setState({
-            showModal: false
+            ...this.initialState
+
         })
         this.props.updateData(this.props.token);
 

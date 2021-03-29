@@ -39,9 +39,26 @@ export default class CreateMeetingFormClass extends Component{
             showModal: false,
         }
 
+
+   
+
     
         
     }
+    
+    isvalidURL(str) {
+        var pattern = new RegExp(/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+        ); 
+        return pattern.test(str);
+        }
+        
+    isnotempty(str) {
+        var pattern = new RegExp(/^(\w+\S+)$/
+        ); 
+        return pattern.test(str);
+        }
+
+    
     // text change
     onChange(e) {
         this.setState({
@@ -89,6 +106,59 @@ export default class CreateMeetingFormClass extends Component{
     }
     // handles the submit button at the buttom of the form
     handleSubmit(){
+        
+        var link = this.isvalidURL(this.state.meetingLink)
+        var isnote = this.isnotempty(this.state.meetingName)
+        var pname = this.isnotempty(this.state.presenterName)
+        var daysofweek = this.state.daysOfWeek
+        var result = true
+        for (var i in daysofweek) {
+            if (daysofweek[i] === true) {
+                result = false;
+                break;
+            }
+        }
+        console.log(result)
+
+
+       
+
+        if (isnote || pname || !result === false) {
+            alert("you frogot a field")
+            
+
+          }
+          
+        
+        
+    
+        
+
+
+
+
+        console.log(this.state.daysOfWeek)
+        
+
+
+        if (link === false) {
+            alert("Please fix your link, it needs https, http or ftp")
+            
+
+          }
+
+
+
+
+
+
+
+
+
+
+
+
+
         const newMeeting = {
             meetingName: this.state.meetingName,
             meetingLink: this.state.meetingLink,

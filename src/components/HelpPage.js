@@ -39,7 +39,9 @@ export default class HelpPage extends Component{
                     <hr/>
                     <h4>Add Meeting</h4>
                     <p>Click the <Button size="sm" variant="primary">Add</Button> button in the top right.</p>
-                    <p>Ensure that you fill out all of the information for your recurring meeting.</p>
+                    <p>Ensure that you fill out all of the information for your recurring meeting as
+                        the notification service relies on your start time and days of the week.
+                    </p>
                     <h4>Join Meeting</h4>
                     <p>Click the <Button size="sm" variant="success">Join Meeting</Button> button on one of your meetings.</p>
                     <h4>Delete Meeting</h4>
@@ -48,11 +50,12 @@ export default class HelpPage extends Component{
                     <p>Click the <Button size="sm" variant="secondary">Edit</Button> button on one of your meetings.</p>
                     <h4>Edit Profile</h4>
                     <p>Click the <Button size="sm" variant="info">Profile</Button> button.</p>
+                    <p>A valid email is required to receive a notification of an upcoming meeting.</p>
                     <h4>Logout</h4>
                     <p>Click the <Button size="sm" variant="secondary">Logout</Button> button.</p>
 
                 </div>
-                <Button variant="secondary" onClick={this.handleClose}>
+                <Button variant="dark" onClick={this.handleClose}>
                         Close
                 </Button>
             </Modal>

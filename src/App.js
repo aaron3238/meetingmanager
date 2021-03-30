@@ -13,8 +13,6 @@ import config from './config.json'
 
 function App() {
   const { token, setToken } = useToken();
-  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
-  const [deleteConfirm, setDeleteConfirm] = useState(false);
    
   if(!token) {
     return <Landing setToken={setToken}/>
@@ -22,8 +20,7 @@ function App() {
   return (
     
     <BrowserRouter>
-          
-          <Body showDeleteWarning={showDeleteWarning} token={token}/>
+          <Body token={token}/>
     </BrowserRouter>
   )
 }

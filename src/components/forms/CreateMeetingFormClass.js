@@ -18,7 +18,7 @@ export default class CreateMeetingFormClass extends Component{
 
     initialState = {
         meetingName: 'asd',
-        meetingLink: 'asd',
+        meetingLink: 'https://www.google.com/',
         presenterName: 'asd',
         startTime: '11:00',
         endTime: '12:00',

@@ -30,8 +30,7 @@ export default class Body extends Component{
 
         this.state = {
           meetings: [],
-          token: props.token,
-          showWarningModal: false
+          token: props.token
         }
         
     }
@@ -69,7 +68,7 @@ export default class Body extends Component{
               <h2>Your Meetings</h2>
               <hr/>
               {this.state.meetings.map(meeting => (
-                  <Card variant="dark" className={Styles.Card}>
+                  <Card key={meeting._id} variant="dark" className={Styles.Card}>
                   <Card.Body className={Styles.meetingInfo}>
                       <Card.Title>{meeting.meetingName}</Card.Title>
                       <Card.Subtitle className="mb-2 text-muted">{meeting.presenterName}</Card.Subtitle>
@@ -93,8 +92,8 @@ export default class Body extends Component{
                       <Card.Text>Remind prior: {meeting.minutesBeforeRemind} minutes</Card.Text>
                   </Card.Body>
                     <div style={{ padding: "1rem" }}>
-                      {/* <DeleteWarning onDelete={this.deleteMeeting(meeting._id)}/> */}
-                      <Button size="sm" variant="danger" onClick={ this.deleteMeeting(meeting._id)}>Delete</Button> {"  "}
+                      <DeleteWarning onDelete={() => this.deleteMeeting(meeting._id)}/> {"  "}
+                      {/* <Button size="sm" variant="danger" onClick={() => console.log("click")}>Delete</Button> {"  "} */}
                       
                       {/* <Button size="sm" variant="secondary" onClick={console.log("edit")}>Edit</Button> */}
                       <EditMeetingFormClass updateData={ this.updateData } token={ this.props.token } meeting={meeting} showModal={this.showEdit}/>

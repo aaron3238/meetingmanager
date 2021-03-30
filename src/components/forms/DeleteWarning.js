@@ -10,8 +10,8 @@ const DeleteWarning = ({onDelete}) => {
   
     return(
       <>
-      <Button size="sm" variant="warning" onClick={()=>setShow(true)}>Delete</Button>
-      <Modal
+      <Button size="sm" variant="warning" onClick={handleShow}>Delete</Button>
+       <Modal
         show={show}
         onHide={handleClose}
         backdrop="static"
@@ -27,7 +27,7 @@ const DeleteWarning = ({onDelete}) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={onDelete}>Yes IM SURE</Button>
+          <Button variant="primary" onClick={onDelete}>Yes I'm Sure</Button>
         </Modal.Footer>
       </Modal>
     </>

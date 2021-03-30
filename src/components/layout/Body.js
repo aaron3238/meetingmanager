@@ -93,30 +93,10 @@ export default class Body extends Component{
                       <Card.Text>Remind prior: {meeting.minutesBeforeRemind} minutes</Card.Text>
                   </Card.Body>
                     <div style={{ padding: "1rem" }}>
-                      {/* <Button size="sm" variant="danger" onClick={ this.props.}>Delete</Button> {"  "} */}
+                      {/* <DeleteWarning onDelete={this.deleteMeeting(meeting._id)}/> */}
+                      <Button size="sm" variant="danger" onClick={ this.deleteMeeting(meeting._id)}>Delete</Button> {"  "}
                       
                       {/* <Button size="sm" variant="secondary" onClick={console.log("edit")}>Edit</Button> */}
-                      {/* <DeleteWarning meetingID={meeting._id} onDelete={this.deleteMeeting}/> */}
-                      <Button size="sm" variant="danger" onClick={()=>this.setState({showWarningModal: true})}>Delete</Button>
-                      <Modal
-                        show={this.state.showWarningModal}
-                        // onHide={this.setState({showWarningModal: false})}
-                        backdrop="static"
-                        keyboard={false}
-                      >
-                        <Modal.Header closeButton>
-                          <Modal.Title>Warning</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                          You are about to delete a meeting. Are you sure you want to delete it?
-                        </Modal.Body>
-                        <Modal.Footer>
-                          <Button variant="secondary" onClick={this.setState({showWarningModal: false})}>
-                            Close
-                          </Button>
-                          <Button variant="primary" onClick={this.deleteMeeting(meeting._id)}>Yes IM SURE</Button>
-                        </Modal.Footer>
-                      </Modal>
                       <EditMeetingFormClass updateData={ this.updateData } token={ this.props.token } meeting={meeting} showModal={this.showEdit}/>
                     </div>
                     

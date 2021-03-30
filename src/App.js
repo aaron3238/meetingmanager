@@ -15,30 +15,15 @@ function App() {
   const { token, setToken } = useToken();
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
-  const [meetingID, setMeetingID] = useState('');
- 
-  const deleteMeeting = (id) =>{
-    setShowDeleteWarning(true)
-    console.log('delete', id)
-    setMeetingID(id)
-    console.log(meetingID)
-  }
- 
- const deleteConfirmed = () =>{
-  setShowDeleteWarning(false);
-  axios.delete(config.backendURL + "/meeting/" + meetingID);
-  console.log("delete complete")
-
- }
-  
+   
   if(!token) {
     return <Landing setToken={setToken}/>
   }
   return (
     
     <BrowserRouter>
-          {showDeleteWarning && <DeleteWarning onClose={() => setShowDeleteWarning(false)} onDelete={() => deleteConfirmed()}/>}
-          <Body token={token} onDelete={() => deleteMeeting}/>
+          
+          <Body showDeleteWarning={showDeleteWarning} token={token}/>
     </BrowserRouter>
   )
 }

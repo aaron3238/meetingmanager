@@ -1,19 +1,19 @@
 import  Modal  from "react-bootstrap/Modal";
 import  Button  from "react-bootstrap/Button";
 import {useState} from "react";
-import {deleteMeeting} from "../layout/Body"
 
-const DeleteWarning = ({onClose, onDelete}) => {
-  const [show, setShow] = useState(true);
+const DeleteWarning = ({onDelete}) => {
+  const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   
     return(
       <>
+      <Button size="sm" variant="warning" onClick={()=>setShow(true)}>Delete</Button>
       <Modal
         show={show}
-        onHide={onClose}
+        onHide={handleClose}
         backdrop="static"
         keyboard={false}
       >
@@ -24,10 +24,10 @@ const DeleteWarning = ({onClose, onDelete}) => {
           You are about to delete a meeting. Are you sure you want to delete it?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={onClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={onDelete}>Delete</Button>
+          <Button variant="primary" onClick={onDelete}>Yes IM SURE</Button>
         </Modal.Footer>
       </Modal>
     </>

@@ -17,13 +17,13 @@ export default class CreateMeetingFormClass extends Component{
 
 
     initialState = {
-        meetingName: '',
-        meetingLink: '',
-        presenterName: '',
-        startTime: '',
-        endTime: '',
+        meetingName: 'asd',
+        meetingLink: 'https://www.google.com/',
+        presenterName: 'asd',
+        startTime: '11:00',
+        endTime: '12:00',
         daysOfWeek: {
-            Monday: false,
+            Monday: true,
             Tuesday: false,
             Wednesday: false,
             Thursday: false,

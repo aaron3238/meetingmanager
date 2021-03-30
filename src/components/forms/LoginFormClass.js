@@ -40,6 +40,7 @@ export default class LoginFormClass extends Component{
 
     render(){
         return(
+            <div style={{ padding: "1rem" }}>
             <Form>
                 <Form.Group>
                     <Form.Label>
@@ -59,6 +60,7 @@ export default class LoginFormClass extends Component{
                         Submit
                 </Button>{"  "}
             </Form>
+            </div>
         )
     }
 }

@@ -15,6 +15,7 @@ async function loginUser(credentials) {
 export default function Login({ setToken }) {
     const [email, setEmail] = React.useState('aaronp@gmail.com');
     const [password, setPassword] = React.useState('yomamma');
+    const [showModal, setshowModal] = React.useState(false);
 
     const submit = async e => {
         e.preventDefault();
@@ -27,24 +28,34 @@ export default function Login({ setToken }) {
     }
     
     return(
-        <Form>
-            <h2>Login</h2>
-            <Form.Group>
-                <Form.Label>
-                    Email 
-                </Form.Label>
-                <Form.Control type="text" placeholder="someone@somewhere.com" value={email} onChange={e => setEmail(e.target.value)} id="email"/>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>
-                    Password 
-                </Form.Label>
-                <Form.Control type="text" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
-            </Form.Group>
-            <Button onClick={submit} variant="primary">
-                Submit
-            </Button>{"  "}
-        </Form>
+        <>
+            <Button id="showAdd" variant="primary" size="sm" onClick={() => setshowModal(true)}>Login</Button>
+            <Modal show={showModal} enforceFocus={true} autoFocus={true}>
+                <div style={{ padding: "1rem" }}>
+                    <Form>
+                        <h2>Login</h2>
+                        <Form.Group>
+                            <Form.Label>
+                                Email 
+                            </Form.Label>
+                            <Form.Control type="text" placeholder="someone@somewhere.com" value={email} onChange={e => setEmail(e.target.value)} id="email"/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>
+                                Password 
+                            </Form.Label>
+                            <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
+                        </Form.Group>
+                        <Button onClick={submit} variant="primary">
+                            Submit
+                        </Button>{"  "}
+                        <Button variant="secondary" onClick={() => setshowModal(false)}>
+                            Cancel
+                        </Button>
+                    </Form>
+                </div>
+            </Modal>
+        </>
     );
 }
 

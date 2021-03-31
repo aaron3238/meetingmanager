@@ -17,6 +17,10 @@ async function editUser(user){
     .then(res => res.data)
 }
 
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 export default function Profile({token}){
 
 
@@ -36,6 +40,7 @@ export default function Profile({token}){
     }, []);
 
     const submit = async e => {
+         
         e.preventDefault();
         const updatedUser = {
             email: email,
@@ -43,8 +48,24 @@ export default function Profile({token}){
             password: password,
             _id: token
         }
-        editUser(updatedUser);
-        setshowModal(false);
+        console.log("hits")
+        console.log(updatedUser.email)
+        var x = validateEmail(updatedUser.email);
+        console.log(x)
+
+
+
+
+        if( x == true)
+        {
+            editUser(updatedUser);
+            setshowModal(false);
+
+        }else{
+            alert("Make sure you have a correct email")
+        }
+        
+    
     }
 
     return(

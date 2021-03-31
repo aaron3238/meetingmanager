@@ -8,35 +8,7 @@ import axios from 'axios';
 import config from '../../config'
 import useToken from '../hooks/useToken'
 
-
-
-
-
-
 export default class CreateMeetingFormClass extends Component{
-
-
-    initialState = {
-        meetingName: '',
-        meetingLink: '',
-        presenterName: '',
-        startTime: '',
-        endTime: '',
-        daysOfWeek: {
-            Monday: false,
-            Tuesday: false,
-            Wednesday: false,
-            Thursday: false,
-            Friday: false,
-            Saturday: false,
-            Sunday: false
-        },
-        minutesBeforeRemind: 30,
-        // Modal
-        showModal: false,
-    }
-
-
     constructor(props){
         super(props);
 
@@ -47,7 +19,25 @@ export default class CreateMeetingFormClass extends Component{
         this.onChangeDow = this.onChangeDow.bind(this);
         this.onChangeStartTime = this.onChangeStartTime.bind(this);
         this.onChangeEndTime = this.onChangeEndTime.bind(this);
-        this.state = {...this.initialState};
+        this.state = {
+            meetingName: '',
+            meetingLink: '',
+            presenterName: '',
+            startTime: '',
+            endTime: '',
+            daysOfWeek: {
+                Monday: false,
+                Tuesday: false,
+                Wednesday: false,
+                Thursday: false,
+                Friday: false,
+                Saturday: false,
+                Sunday: false
+            },
+            minutesBeforeRemind: 30,
+            // Modal
+            showModal: false,
+        }
 
 
    
@@ -57,16 +47,20 @@ export default class CreateMeetingFormClass extends Component{
     }
     
     isvalidURL(str) {
-        var pattern = new RegExp(/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+        var pattern = new RegExp(/(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
         ); 
         return pattern.test(str);
         }
         
     isnotempty(str) {
-        var pattern = new RegExp(/^(\w+\S+)$/
-        ); 
+        var pattern = new RegExp(/^(\w+\S+)$/); 
         return pattern.test(str);
         }
+
+    isNormalInteger(str) {
+        var n = Math.floor(Number(str));
+        return n !== Infinity && String(n) === str && n >= 0;
+    }
 
     
     // text change
@@ -115,60 +109,7 @@ export default class CreateMeetingFormClass extends Component{
         })
     }
     // handles the submit button at the buttom of the form
-    handleSubmit(){
-        
-        var link = this.isvalidURL(this.state.meetingLink)
-        var isnote = this.isnotempty(this.state.meetingName)
-        var pname = this.isnotempty(this.state.presenterName)
-        var daysofweek = this.state.daysOfWeek
-        var result = true
-        for (var i in daysofweek) {
-            if (daysofweek[i] === true) {
-                result = false;
-                break;
-            }
-        }
-        console.log(result)
-
-
-       
-
-        if (isnote || pname || !result === false) {
-            alert("you frogot a field")
-            
-
-          }
-          
-        
-        
-    
-        
-
-
-
-
-        console.log(this.state.daysOfWeek)
-        
-
-
-        if (link === false) {
-            alert("Please fix your link, it needs https, http or ftp")
-            
-
-          }
-
-
-
-
-
-
-
-
-
-
-
-
-
+    handleSubmit(){ 
         const newMeeting = {
             meetingName: this.state.meetingName,
             meetingLink: this.state.meetingLink,
@@ -179,16 +120,88 @@ export default class CreateMeetingFormClass extends Component{
             minutesBeforeRemind: this.state.minutesBeforeRemind,
             user: this.props.token
         }
+        var intcheck = false;
 
-        axios.post(config.backendURL + "/meeting" , newMeeting);
-        // clears form and hides modal on submit
-        this.setState({
-            ...this.initialState
+        if(typeof newMeeting.minutesBeforeRemind === 'number'){
+            console.log(newMeeting.minutesBeforeRemind)
+            console.log("is postive")
+            var x = newMeeting.minutesBeforeRemind > 0
 
-        })
-        this.props.updateData(this.props.token);
+            if(x == true)
+            {
+             intcheck = true;   
+            }
+        }else{
+            console.log("its not a number");
+        }
+        
+        //tests
+        var link = this.isvalidURL(newMeeting.meetingLink)
+        var isnote = this.isnotempty(newMeeting.meetingName)
+        var pname = this.isnotempty(newMeeting.presenterName)
+        
+      
+        
+        
 
-    }
+        var daysofweek = newMeeting.daysOfWeek
+        var result = false
+        var failedtest = false
+        for (var i in daysofweek) {
+            if (daysofweek[i] == true) {
+                result = true;
+                break;
+            }
+            
+        }
+        
+        
+        console.log("meeting name")
+        console.log(isnote)
+        console.log("prez name")
+        console.log(pname)
+        console.log("link")
+        console.log(link)
+        console.log("day of week")
+        console.log(result)
+        if (isnote == false ||
+            pname == false ||
+            result === false) {
+         alert("all fields are needed")
+            failedtest = true;
+        }    
+        if (intcheck == false) {
+            alert("Time before meeting must be a positive int")
+            failedtest = true;
+
+          }
+        
+        if (link == false) {
+            alert("Please fix your link, it needs https, http or ftp")
+            failedtest = true;
+
+          }
+       
+        console.log("this is the submit")
+        console.log(failedtest)
+
+        //end tests
+
+
+        if (failedtest == false) {
+            axios.post(config.backendURL + "/meeting" , newMeeting)
+
+            this.setState({
+                showModal: false
+            })
+            this.props.updateData(this.props.token);
+            
+        }
+            
+            
+
+       
+    }      
     render(){
         return(
             <>

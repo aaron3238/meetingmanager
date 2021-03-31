@@ -6,15 +6,42 @@ import {useAuthDataContext} from "../context/AuthContext.js"
 import Modal from 'react-bootstrap/Modal'
 import config from "../../config.json"
 import PropTypes from 'prop-types';
-
+var testfail = false;
 async function loginUser(credentials) {
+    
+    var x = validateEmail(credentials.email);
+    if( x == true)
+    {
+        testfail = true  
+
+    }else{
+        alert("Make sure you have a correct email")
+        
+    }
     return axios.post(config.backendURL + "/user/login", credentials)
     .then(res => res.data)
+
+        
+
+
+
+
+
+
+
+
+}
+
+
+
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
 }
 
 export default function Login({ setToken }) {
-    const [email, setEmail] = React.useState('aaronp@gmail.com');
-    const [password, setPassword] = React.useState('yomamma');
+    const [email, setEmail] = React.useState('something@somwhere.com');
+    const [password, setPassword] = React.useState('password');
     const [showModal, setshowModal] = React.useState(false);
 
     const submit = async e => {
@@ -23,8 +50,28 @@ export default function Login({ setToken }) {
             email: email,
             password: password
         });
+
+
+        
+
+
+
+        if(testfail){
+            //alert("success");
+            setToken(token);
+            window.location = ""
+        }else{
+            alert("unsuccessful");
+        }
+        
+
+
+
+
+
         setToken(token);
         window.location = ""
+       
     }
     
     return(
@@ -60,5 +107,6 @@ export default function Login({ setToken }) {
 }
 
 Login.propTypes = {
+    
   setToken: PropTypes.func.isRequired
 }

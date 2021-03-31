@@ -8,10 +8,37 @@ import config from "../../config.json"
 import PropTypes from 'prop-types';
 import Alert from 'react-bootstrap/Alert'
 
-
+var testfail = false;
 async function registerUser(credentials) {
+
+    
+    var x = validateEmail(credentials.email);
+    if( x == true)
+    {
+        testfail = true  
+        return axios.post(config.backendURL + "/user/login", credentials)
+        .then(res => res.data)
+
+    }else{
+        alert("Make sure you have a correct email")
+        
+    }
+
+
+
+ 
+
+
+
+
+
+
     return axios.post(config.backendURL + "/user", credentials)
     .then(res => res.data)
+}
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
 }
 
 
@@ -33,13 +60,20 @@ export default function Register({ setToken }) {
             password: password
         });
         // setToken(token);
-        if(token){
+        if(testfail){
             //alert("success");
-            setshowAlert("true")
-            window.location = "";
+            setToken(token);
+            window.location = ""
         }else{
             alert("unsuccessful");
         }
+
+
+
+
+
+
+        
     }
     
 

@@ -27,6 +27,19 @@ export default class LoginFormClass extends Component{
 
     handleSubmit(){
         //send the api our data
+        
+     
+
+
+
+
+
+
+
+
+
+
+
         axios.post(config.backendURL + "/user/login", this.state)
         .then(res => {
             console.log(res)
@@ -35,6 +48,15 @@ export default class LoginFormClass extends Component{
         })
         .catch(err => console.log(err))
         //(Set the user in the context && redirect) || Error message
+
+
+
+
+
+
+
+
+
 
     }
 
@@ -46,7 +68,7 @@ export default class LoginFormClass extends Component{
                     <Form.Label>
                         Email 
                     </Form.Label>
-                    <Form.Control type="text" placeholder="someone@somewhere.com" 
+                    <Form.Control type="text" placeholder="someone@somewhere.com  TEST" 
                     onChange={this.handleChange} id="email" value={this.state.email}/>
                 </Form.Group>
                 <Form.Group>

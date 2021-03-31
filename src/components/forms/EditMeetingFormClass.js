@@ -33,6 +33,22 @@ export default class EditMeetingFormClass extends Component{
         }
         
     }
+    
+    isvalidURL(str) {
+        var pattern = new RegExp(/(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+        ); 
+        return pattern.test(str);
+        }
+        
+    isnotempty(str) {
+        var pattern = new RegExp(/^(\w+\S+)$/); 
+        return pattern.test(str);
+        }
+
+    isNormalInteger(str) {
+        var n = Math.floor(Number(str));
+        return n !== Infinity && String(n) === str && n >= 0;
+    }
     onChange(e) {
         this.setState({
             [e.target.id]: e.target.value
@@ -88,7 +104,94 @@ export default class EditMeetingFormClass extends Component{
             user: this.props.token,
             _id: this.state._id
         }
+        var intcheck = false;
+        console.log(typeof updatedMeeting.minutesBeforeRemind)
+        if(typeof updatedMeeting.minutesBeforeRemind.isNormalInteger){
+            console.log(updatedMeeting.minutesBeforeRemind)
+            console.log("is postive")
+            var x = updatedMeeting.minutesBeforeRemind > 0
+            console.log(x)
 
+            if(x == true)
+            {
+             intcheck = true;   
+            }
+            else{
+                console.log("its not a number");
+            }
+        }
+
+
+
+
+
+
+
+
+
+        //tests
+        var link = this.isvalidURL(updatedMeeting.meetingLink)
+        var isnote = this.isnotempty(updatedMeeting.meetingName)
+        var pname = this.isnotempty(updatedMeeting.presenterName)
+       
+       
+        
+        
+       
+        var daysofweek = updatedMeeting.daysOfWeek
+        var result = false
+        var failedtest = false
+        for (var i in daysofweek) {
+            if (daysofweek[i] == true) {
+                result = true;
+                break;
+            }
+            
+        }
+        
+
+        console.log("meeting name")
+        console.log(isnote)
+        console.log("prez name")
+        console.log(pname)
+        console.log("link")
+        console.log(link)
+        console.log("day of week")
+        console.log(result)
+
+
+        if (isnote == false ||
+            pname == false ||
+            result === false) {
+         alert("all fields are needed")
+            failedtest = true;
+        }    
+
+
+
+        if (intcheck == false) {
+            alert("Time before meeting must be a positive int")
+            failedtest = true;
+
+          }
+        
+        if (link == false) {
+            alert("Please fix your link, it needs https, http")
+            failedtest = true;
+
+          }
+        
+        console.log("this is the submit")
+        console.log(failedtest)
+
+        //end tests
+
+
+
+
+
+
+        if (failedtest == false) {
         axios.post(config.backendURL + "/meeting/" + this.state._id, updatedMeeting)
         .then(res => {
             this.props.updateData(this.props.token)
@@ -98,6 +201,7 @@ export default class EditMeetingFormClass extends Component{
         this.setState({
                 showModal: false
         })
+        }
         
 
     }

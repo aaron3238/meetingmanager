@@ -138,18 +138,23 @@ export default class CreateMeetingFormClass extends Component{
         }
         var intcheck = false;
 
-        if(typeof newMeeting.minutesBeforeRemind === 'number'){
-            console.log(newMeeting.minutesBeforeRemind)
-            console.log("is postive")
-            var x = newMeeting.minutesBeforeRemind > 0
+       
 
-            if(x == true)
-            {
+
+
+        if(newMeeting.minutesBeforeRemind > 0 ){
              intcheck = true;   
-            }
-        }else{
-           // console.log("its not a number");
+            
         }
+
+        console.log(newMeeting.minutesBeforeRemind)
+        console.log(intcheck)
+
+
+
+
+
+
         
         //tests
         var link = this.isvalidURL(newMeeting.meetingLink)

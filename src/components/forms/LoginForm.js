@@ -58,7 +58,7 @@ export default function Login({ setToken }) {
                 <div style={{ padding: "1rem" }}>
                     <Form>
                         <h2>Login</h2>
-                        <Form.Group>
+                        <Form.Group controlId="formBasicEmail">
                             <Form.Label>
                                 Email 
                             </Form.Label>

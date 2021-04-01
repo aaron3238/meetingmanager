@@ -186,7 +186,7 @@ export default class CreateMeetingFormClass extends Component{
           }
         
         if (link == false) {
-            alert("Please fix your link, it needs https, http or ftp")
+            alert("Please fix your link, it needs https, http")
             failedtest = true;
 
           }

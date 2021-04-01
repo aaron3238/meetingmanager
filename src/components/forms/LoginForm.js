@@ -56,13 +56,13 @@ export default function Login({ setToken }) {
             <Button id="showAdd" variant="primary" size="sm" onClick={() => setshowModal(true)}>Login</Button>
             <Modal show={showModal} enforceFocus={true} autoFocus={true}>
                 <div style={{ padding: "1rem" }}>
-                    <Form>
+                    <Form onSubmit={submit}>
                         <h2>Login</h2>
-                        <Form.Group>
+                        <Form.Group controlId="formBasicEmail">
                             <Form.Label>
                                 Email 
                             </Form.Label>
-                            <Form.Control type="text" placeholder="someone@somewhere.com" value={email} onChange={e => setEmail(e.target.value)} id="email"/>
+                            <Form.Control type="email" placeholder="someone@somewhere.com" value={email} onChange={e => setEmail(e.target.value)} id="email"/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>
@@ -70,7 +70,7 @@ export default function Login({ setToken }) {
                             </Form.Label>
                             <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
                         </Form.Group>
-                        <Button onClick={submit} variant="primary">
+                        <Button type="submit" variant="primary">
                             Submit
                         </Button>{"  "}
                         <Button variant="secondary" onClick={() => setshowModal(false)}>

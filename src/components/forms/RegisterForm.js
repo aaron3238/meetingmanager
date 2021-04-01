@@ -8,34 +8,21 @@ import config from "../../config.json"
 import PropTypes from 'prop-types';
 import Alert from 'react-bootstrap/Alert'
 
-var testfail = false;
+var testpass = false;
 async function registerUser(credentials) {
 
-    
-    var x = validateEmail(credentials.email);
-    if( x == true)
-    {
-        testfail = true  
-        return axios.post(config.backendURL + "/user/login", credentials)
+      
+        return axios.post(config.backendURL + "/user", credentials)
         .then(res => res.data)
-
-    }else{
-        alert("Make sure you have a correct email")
-        
-    }
-
-
-
  
-
-
-
-
-
-
-    return axios.post(config.backendURL + "/user", credentials)
-    .then(res => res.data)
 }
+
+
+
+
+
+
+
 function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
@@ -54,26 +41,28 @@ export default function Register({ setToken }) {
     const [showAlert, setshowAlert] = React.useState(false);
     const submit = async e => {
         e.preventDefault();
-        const token = await registerUser({
-            email: email,
-            name: fullName,
-            password: password
-        });
-        // setToken(token);
-        if(testfail){
-            //alert("success");
-            setToken(token);
-            window.location = ""
+
+        if(validateEmail(email)){
+            const token = await registerUser({
+                email: email,
+                name: fullName,
+                password: password
+            });
+            console.log(token);
+            if(token){
+                //alert("success");
+                //setToken(token);
+                setshowAlert("true");
+                window.location = ""
+                
+            }else{
+                alert("unsuccessful");
+            }
         }else{
-            alert("unsuccessful");
+            
+            alert("Make sure you have a correct email")
         }
 
-
-
-
-
-
-        
     }
     
 

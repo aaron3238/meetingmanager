@@ -8,27 +8,8 @@ import config from "../../config.json"
 import PropTypes from 'prop-types';
 var testfail = false;
 async function loginUser(credentials) {
-    
-    var x = validateEmail(credentials.email);
-    if( x == true)
-    {
-        testfail = true  
-
-    }else{
-        alert("Make sure you have a correct email")
-        
-    }
     return axios.post(config.backendURL + "/user/login", credentials)
     .then(res => res.data)
-
-        
-
-
-
-
-
-
-
 
 }
 
@@ -40,37 +21,33 @@ function validateEmail(email) {
 }
 
 export default function Login({ setToken }) {
-    const [email, setEmail] = React.useState('something@somwhere.com');
-    const [password, setPassword] = React.useState('password');
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
     const [showModal, setshowModal] = React.useState(false);
 
     const submit = async e => {
         e.preventDefault();
-        const token = await loginUser({
-            email: email,
-            password: password
-        });
-
-
-        
-
-
-
-        if(testfail){
-            //alert("success");
-            setToken(token);
-            window.location = ""
+        if(validateEmail(email)){
+            const token = await loginUser({
+                email: email,
+                password: password
+            });
+            
+            if(token){
+                //alert("success");
+                setToken(token);
+                
+                window.location = ""
+                
+            }else{
+                alert("unsuccessful");
+            }
         }else{
-            alert("unsuccessful");
+            
+            alert("Make sure you have a correct email")
         }
-        
 
 
-
-
-
-        setToken(token);
-        window.location = ""
        
     }
     

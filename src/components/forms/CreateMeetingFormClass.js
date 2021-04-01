@@ -51,7 +51,6 @@ export default class CreateMeetingFormClass extends Component{
 
     
         
-    }
     
     isvalidURL(str) {
         var pattern = new RegExp(/(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
@@ -60,8 +59,18 @@ export default class CreateMeetingFormClass extends Component{
         }
         
     isnotempty(str) {
-        var pattern = new RegExp(/^(\w+\S+)$/); 
-        return pattern.test(str);
+
+       
+
+        if(str === ""){
+           // console.log("this is an empty string");
+            return false;
+        
+        }else{
+            //console.log("this is not an empty string");
+            return true;
+        }
+        
         }
 
     isNormalInteger(str) {
@@ -139,7 +148,7 @@ export default class CreateMeetingFormClass extends Component{
              intcheck = true;   
             }
         }else{
-            console.log("its not a number");
+           // console.log("its not a number");
         }
         
         //tests
@@ -163,14 +172,7 @@ export default class CreateMeetingFormClass extends Component{
         }
         
         
-        console.log("meeting name")
-        console.log(isnote)
-        console.log("prez name")
-        console.log(pname)
-        console.log("link")
-        console.log(link)
-        console.log("day of week")
-        console.log(result)
+   
         if (isnote == false ||
             pname == false ||
             result === false) {
@@ -189,8 +191,8 @@ export default class CreateMeetingFormClass extends Component{
 
           }
        
-        console.log("this is the submit")
-        console.log(failedtest)
+        //console.log("this is the submit")
+        //console.log(failedtest)
 
         //end tests
 

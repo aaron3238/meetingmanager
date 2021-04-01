@@ -48,11 +48,9 @@ export default function Profile({token}){
             password: password,
             _id: token
         }
-        console.log("hits")
-        console.log(updatedUser.email)
+      
         var x = validateEmail(updatedUser.email);
-        console.log(x)
-
+     
 
 
 

@@ -37,10 +37,10 @@ export default function Profile({token}){
             setPassword(user.password);
             setfullName(user.name);
         })
+        .catch(err => console.log(err))
     }, []);
 
-    const submit = async e => {
-         
+    const submit = async e => {         
         e.preventDefault();
         const updatedUser = {
             email: email,
@@ -71,13 +71,13 @@ export default function Profile({token}){
             <Button id="showAdd" variant="info" size="sm" onClick={() => setshowModal(true)}>Profile</Button>
             <Modal show={showModal} enforceFocus={true} autoFocus={true}>
                 <div style={{ padding: "1rem" }}>
-                    <Form>
+                    <Form onSubmit={submit}>
                         <h2>Edit Profile</h2>
-                        <Form.Group>
+                        <Form.Group controlId="formBasicEmail">
                             <Form.Label>
                                 Email 
                             </Form.Label>
-                            <Form.Control type="text" placeholder="someone@somewhere.com" value={email} onChange={e => setEmail(e.target.value)} id="email"/>
+                            <Form.Control type="email" placeholder="someone@somewhere.com" value={email} onChange={e => setEmail(e.target.value)} id="email"/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>
@@ -89,9 +89,9 @@ export default function Profile({token}){
                             <Form.Label>
                                 Password 
                             </Form.Label>
-                            <Form.Control type="text" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
+                            <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
                         </Form.Group>
-                        <Button onClick={submit} variant="primary">
+                        <Button type="submit" variant="primary">
                             Submit
                         </Button>{"  "}
                         <Button variant="secondary" onClick={() => setshowModal(false)}>

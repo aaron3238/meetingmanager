@@ -11,10 +11,8 @@ import Alert from 'react-bootstrap/Alert'
 var testpass = false;
 async function registerUser(credentials) {
 
-      
-        return axios.post(config.backendURL + "/user", credentials)
-        .then(res => res.data)
- 
+    return axios.post(config.backendURL + "/user", credentials)
+    .then(res => res.data)
 }
 
 

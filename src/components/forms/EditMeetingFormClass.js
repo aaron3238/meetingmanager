@@ -111,10 +111,9 @@ export default class EditMeetingFormClass extends Component{
             _id: this.state._id
         }
         var intcheck = false;
-        console.log(typeof updatedMeeting.minutesBeforeRemind)
+        
         if(typeof updatedMeeting.minutesBeforeRemind.isNormalInteger){
-            console.log(updatedMeeting.minutesBeforeRemind)
-            console.log("is postive")
+            
             var x = updatedMeeting.minutesBeforeRemind > 0
             console.log(x)
 
@@ -122,9 +121,7 @@ export default class EditMeetingFormClass extends Component{
             {
              intcheck = true;   
             }
-            else{
-                //console.log("its not a number");
-            }
+            
         }
 
 

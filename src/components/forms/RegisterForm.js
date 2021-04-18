@@ -27,6 +27,20 @@ function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
+function    isnotempty(str) {
+
+       
+
+        if(str === ""){
+            // console.log("this is an empty string");
+            return false;
+
+        }else{
+            //console.log("this is not an empty string");
+            return true;
+        }
+
+        }
 
 
 
@@ -42,7 +56,7 @@ export default function Register({ setToken }) {
     const submit = async e => {
         e.preventDefault();
 
-        if(validateEmail(email)){
+        if(validateEmail(email) ||isnotempty(fullName)  ){
             const token = await registerUser({
                 email: email,
                 name: fullName,
@@ -83,19 +97,19 @@ export default function Register({ setToken }) {
                     <h2>Register</h2>
                     <Form.Group>
                         <Form.Label>
-                            Email 
+                            Email
                         </Form.Label>
                         <Form.Control type="text" placeholder="someone@somewhere.com" value={email} onChange={e => setEmail(e.target.value)} id="email"/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>
-                            Full Name
+                            Full Name(required)
                         </Form.Label>
                         <Form.Control type="text" placeholder="John Smith" value={fullName} onChange={e => setfullName(e.target.value)} id="fullName"/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>
-                            Password 
+                            Password
                         </Form.Label>
                         <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
                     </Form.Group>

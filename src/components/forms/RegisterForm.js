@@ -11,10 +11,8 @@ import Alert from 'react-bootstrap/Alert'
 var testpass = false;
 async function registerUser(credentials) {
 
-      
-        return axios.post(config.backendURL + "/user", credentials)
-        .then(res => res.data)
- 
+    return axios.post(config.backendURL + "/user", credentials)
+    .then(res => res.data)
 }
 
 
@@ -93,13 +91,13 @@ export default function Register({ setToken }) {
                 <p>You may now login!</p>
             </Alert>
             <div style={{ padding: "1rem" }}>
-                <Form>
+                <Form onSubmit={submit}>
                     <h2>Register</h2>
-                    <Form.Group>
+                    <Form.Group controlId="formBasicEmail">
                         <Form.Label>
                             Email
                         </Form.Label>
-                        <Form.Control type="text" placeholder="someone@somewhere.com" value={email} onChange={e => setEmail(e.target.value)} id="email"/>
+                        <Form.Control type="email" placeholder="someone@somewhere.com" value={email} onChange={e => setEmail(e.target.value)} id="email"/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>
@@ -113,7 +111,7 @@ export default function Register({ setToken }) {
                         </Form.Label>
                         <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
                     </Form.Group>
-                    <Button onClick={submit} variant="primary">
+                    <Button type="submit" variant="primary">
                         Submit
                     </Button>{"  "}
                     <Button variant="secondary" onClick={() => setshowModal(false)}>

@@ -59,14 +59,19 @@ export default class Body extends Component{
   }
 
     render(){
+      let noMeetingsWarning;
+      if(this.state.meetings.length==0){
+        noMeetingsWarning = <h3>You have no meetings, click the <Button variant="primary" size="sm">Add</Button> button in the top bar.</h3>
+      }
       
-        return(
-          
+      return(
         <div className={Styles.App}>
         <Topbarnav updateData={this.updateData} token={this.props.token}/>
             <div className={Styles.meetingContainer}>
+              
               <h2>Your Meetings</h2>
               <hr/>
+              {noMeetingsWarning}
               {this.state.meetings.map(meeting => (
                   <Card key={meeting._id} variant="dark" className={Styles.Card}>
                   <Card.Body className={Styles.meetingInfo}>
@@ -103,6 +108,6 @@ export default class Body extends Component{
               ))}
             </div>
         </div>
-        )
+      )
     }
 }

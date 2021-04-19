@@ -10,6 +10,7 @@ import config from '../../config.json'
 import axios from 'axios'
 import EditMeetingFormClass from "../forms/EditMeetingFormClass.js"
 import DeleteWarning from "../forms/DeleteWarning"
+import Alert from 'react-bootstrap/Alert'
 import  Modal  from "react-bootstrap/Modal";
 import { render } from "react-dom";
 import { boolean } from "yup";
@@ -30,8 +31,10 @@ export default class Body extends Component{
 
         this.state = {
           meetings: [],
-          token: props.token
+          token: props.token,
+          response: null
         }
+
         
     }
 
@@ -53,15 +56,20 @@ export default class Body extends Component{
     .then(res => {
         if (res.data != null) {
           this.setState({meetings: res.data});
-        }
+          this.setState({response: res.status})
+          console.log(res.status)
+    }}).catch(res=> {
+      this.setState({response: 404})
     })
     
   }
 
     render(){
       let noMeetingsWarning;
-      if(this.state.meetings.length==0){
-        noMeetingsWarning = <h3>You have no meetings, click the <Button variant="primary" size="sm">Add</Button> button in the top bar.</h3>
+      if(this.state.meetings.length===0 && this.state.response===200){ // no meetings
+        noMeetingsWarning = <Alert variant="warning">Please add a meeting</Alert>
+      }else if(this.state.response==404 && !this.state.meetings.length>0){ // error connecting
+        noMeetingsWarning = <Alert variant="danger">Error connecting to server</Alert>
       }
       
       return(

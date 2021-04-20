@@ -10,11 +10,19 @@ import PropTypes from 'prop-types';
 async function getUser(id) {
     return axios.get(config.backendURL + "/user/" + id)
     .then(res => res.data)
+    .catch(res=>{
+        console.log(res.status);
+        alert("Whoops! Looks like there was an error connecting to the server, please try again later.")
+    })
 }
 
 async function editUser(user){
     return axios.post(config.backendURL + "/user/" + user._id, user)
     .then(res => res.data)
+    .catch(res=>{
+        console.log(res.status);
+        alert("Whoops! Looks like there was an error connecting to the server, please try again later.")
+    })
 }
 
 function validateEmail(email) {

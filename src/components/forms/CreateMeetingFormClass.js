@@ -7,6 +7,7 @@ import TimePicker from 'react-time-picker' // https://github.com/wojtekmaj/react
 import axios from 'axios';
 import config from '../../config'
 import useToken from '../hooks/useToken'
+import Alert from 'react-bootstrap/Alert'
 
 export default class CreateMeetingFormClass extends Component{
 
@@ -198,19 +199,24 @@ export default class CreateMeetingFormClass extends Component{
        
         //console.log("this is the submit")
         //console.log(failedtest)
-
+        let connectionAlert;
         //end tests
-
-
         if (failedtest == false) {
             axios.post(config.backendURL + "/meeting" , newMeeting)
+            .then(res=>{
+                this.setState({
+                
+                    ...this.initialState
+                })
+                this.props.updateData(this.props.token);
+            })
+            .catch(res=>{
+                console.log(res.status);
+                alert("Whoops! Looks like there was an error connecting to the server, please try again later.")
+            })
         
 
-            this.setState({
-                
-                ...this.initialState
-            })
-            this.props.updateData(this.props.token);
+
             
         }
             

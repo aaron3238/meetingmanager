@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/Modal'
 import config from "../../config.json"
 import PropTypes from 'prop-types';
 import Alert from 'react-bootstrap/Alert'
+import bcrypt from 'bcrypt';
 
 var testpass = false;
 async function registerUser(credentials) {
@@ -37,6 +38,14 @@ export default function Register({ setToken }) {
     const [fullName, setfullName] = React.useState('');
     const [showModal, setshowModal] = React.useState(false);
     const [showAlert, setshowAlert] = React.useState(false);
+
+     function hashPass(pass) {
+        const salt = bcrypt.genSalt();
+        const hashedPass = bcrypt.hash(pass, salt);
+        setPassword(hashedPass);
+    
+    } 
+
     const submit = async e => {
         e.preventDefault();
 
@@ -95,7 +104,7 @@ export default function Register({ setToken }) {
                         <Form.Label>
                             Password 
                         </Form.Label>
-                        <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
+                        <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => hashPass(e.target.value)} id="password"/>
                     </Form.Group>
                     <Button type="submit" variant="primary">
                         Submit

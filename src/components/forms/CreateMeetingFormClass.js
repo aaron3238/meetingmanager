@@ -177,7 +177,6 @@ export default class CreateMeetingFormClass extends Component{
         }
         
         
-   /*
         if (isnote == false ||
             pname == false ||
             result === false) {
@@ -195,7 +194,6 @@ export default class CreateMeetingFormClass extends Component{
             failedtest = true;
 
           }
-       */
         //console.log("this is the submit")
         //console.log(failedtest)
 
@@ -221,7 +219,7 @@ export default class CreateMeetingFormClass extends Component{
             <Modal show={this.state.showModal} enforceFocus={true} autoFocus={true}>
                 <div style={{ padding: "1rem" }}>
                 <Form>status
-                    
+
                     <h2>Add a Meeting</h2>
                     <p style={{color: "red"}}>All fields are required.</p>
                     <Form.Group>

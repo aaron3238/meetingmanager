@@ -60,15 +60,15 @@ export default function Login({ setToken }) {
                         <h2>Login</h2>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>
-                                Email 
+                            <div> Email <span style={{color: "red"}}> * </span></div> 
                             </Form.Label>
-                            <Form.Control type="email" placeholder="someone@somewhere.com" value={email} onChange={e => setEmail(e.target.value)} id="email"/>
+                            <Form.Control required type="email" placeholder="someone@somewhere.com" value={email} onChange={e => setEmail(e.target.value)} id="email"/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>
-                                Password 
+                            <div> Password <span style={{color: "red"}}> * </span></div> 
                             </Form.Label>
-                            <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
+                            <Form.Control required type="password" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
                         </Form.Group>
                         <Button type="submit" variant="primary">
                             Submit

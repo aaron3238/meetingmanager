@@ -207,26 +207,50 @@ export default class EditMeetingFormClass extends Component{
             <Modal show={this.state.showModal} enforceFocus={true} autoFocus={true}>
                 <div style={{ padding: "1rem" }}>
                 <Form>
+                    <h2>Edit Meeting</h2>
+                    <p style={{color: "red"}}>All fields are required.</p>
                     <Form.Group>
-                        <Form.Label>Meeting Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter a name for your meeting..."
-                        onChange={this.onChange} id="meetingName" value={this.state.meetingName}/>
+                        <Form.Label>
+                        <div> Meeting Name <span style={{color: "red"}}> * </span></div>
+                        </Form.Label>
+                        <Form.Control 
+                        required
+                        type="text" 
+                        placeholder="Enter a name for your meeting..."
+                        onChange={this.onChange} id="meetingName" 
+                        value={this.state.meetingName}/>
                         {/* <Form.Text className="text-muted">
                         Ex: Weekly team meeting
                         </Form.Text> */}
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Zoom Meeting Link</Form.Label>
-                        <Form.Control type="text" placeholder="Paste your zoom link here"
-                        onChange={this.onChange} id="meetingLink" value={this.state.meetingLink}/>
+                        <Form.Label>
+                            <div> Zoom Meeting Link <span style={{color: "red"}}> * </span></div>
+                        </Form.Label>
+                        <Form.Control 
+                        required
+                        type="text" 
+                        placeholder="Paste your zoom link here"
+                        onChange={this.onChange} 
+                        id="meetingLink" 
+                        value={this.state.meetingLink}/>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Presenter Name</Form.Label>
-                        <Form.Control type="text" id="presenterName" placeholder="Who is hosting the meeting?"
-                        onChange={this.onChange} value={this.state.presenterName}/>
+                        <Form.Label>
+                            <div> Presenter Name <span style={{color: "red"}}> * </span></div>
+                        </Form.Label>
+                        <Form.Control 
+                        required
+                        type="text" 
+                        id="presenterName" 
+                        placeholder="Who is hosting the meeting?"
+                        onChange={this.onChange} 
+                        value={this.state.presenterName}/>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Days of the week</Form.Label>
+                        <Form.Label>
+                            <div> Days of the week <span style={{color: "red"}}> * </span></div>
+                        </Form.Label>
                         {['checkbox'].map((type) => (
                             <div key={`inline-${type}`} className="mb-3">
                             <Form.Check inline label="Mon" checked={this.state.daysOfWeek.Monday} type={type} id="Monday" onChange={this.onChangeDow}/>
@@ -240,14 +264,18 @@ export default class EditMeetingFormClass extends Component{
                         ))}
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Start Time: </Form.Label>{"  "}
+                        <Form.Label>
+                            <div> Start Time: <span style={{color: "red"}}> * </span></div>
+                        </Form.Label>{"  "}
                         <TimePicker disableClock={true} onChange={this.onChangeStartTime} value={this.state.startTime}/>
-                        <Form.Label>End Time: </Form.Label>{"  "}
+                        <Form.Label>
+                            <div> End Time: <span style={{color: "red"}}> * </span></div>
+                        </Form.Label>{"  "}
                         <TimePicker disableClock={true} onChange={this.onChangeEndTime} value={this.state.endTime}/>
-                        <Form.Label>Remind me minutes before</Form.Label> {"  "}
-                        <Form.Control type="text" id="minutesBeforeRemind"
-                        onChange={this.onChange} value={this.state.minutesBeforeRemind}
-                        />
+                        <Form.Label>
+                            <div> Remind me <Form.Control style ={{width: "40%"}} required type="number" id="minutesBeforeRemind" onChange={this.onChange} value={this.state.minutesBeforeRemind}/>
+                            minutes before my meeting</div>
+                        </Form.Label> {"  "}
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>

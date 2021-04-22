@@ -34,6 +34,8 @@ export default function Register({ setToken }) {
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [hash, setHash] = React.useState('');
+    const [salt, setSalt] = React.useState('');
     const [fullName, setfullName] = React.useState('');
     const [showModal, setshowModal] = React.useState(false);
     const [showAlert, setshowAlert] = React.useState(false);

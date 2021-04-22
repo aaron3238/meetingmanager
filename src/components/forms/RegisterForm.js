@@ -37,6 +37,10 @@ export default function Register({ setToken }) {
     const [fullName, setfullName] = React.useState('');
     const [showModal, setshowModal] = React.useState(false);
     const [showAlert, setshowAlert] = React.useState(false);
+    const setHash = (Pass) => {
+        setPassword(Pass);
+        console.log(password);
+    }
     const submit = async e => {
         e.preventDefault();
 
@@ -95,7 +99,7 @@ export default function Register({ setToken }) {
                         <Form.Label>
                             Password 
                         </Form.Label>
-                        <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
+                        <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => setHash(e.target.value)} id="password"/>
                     </Form.Group>
                     <Button type="submit" variant="primary">
                         Submit

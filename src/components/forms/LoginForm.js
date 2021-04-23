@@ -52,7 +52,7 @@ export default function Login({ setToken }) {
     }
     
     return(
-        <>
+        <>  
             <Button id="showAdd" variant="primary" size="sm" onClick={() => setshowModal(true)}>Login</Button>
             <Modal show={showModal} enforceFocus={true} autoFocus={true}>
                 <div style={{ padding: "1rem" }}>

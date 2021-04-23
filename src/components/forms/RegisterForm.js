@@ -14,7 +14,11 @@ async function registerUser(credentials) {
     return axios.post(config.backendURL + "/user", credentials)
     .then(res => res.data)
 }
+async function echeck(credentials) {
 
+    return axios.post(config.backendURL + "/user/email", credentials)
+    .then(res => res.data)
+}
 
 
 
@@ -53,15 +57,34 @@ export default function Register({ setToken }) {
     const [showAlert, setshowAlert] = React.useState(false);
     const submit = async e => {
         e.preventDefault();
+        
 
         if(validateEmail(email) ||isnotempty(fullName)  ){
+            const bar = await echeck({
+                email: email,  
+            })
+            var x = isnotempty(bar)
             const token = await registerUser({
                 email: email,
                 name: fullName,
                 password: password
-            });
+            })
+            var worked = true
+            if(x)
+            {
+                alert("email already exists");
+                worked = false
+
+            }
+          
+        
+            
+            
+           
+            
+
             console.log(token);
-            if(token){
+            if(worked){
                 //alert("success");
                 //setToken(token);
                 setshowAlert("true");

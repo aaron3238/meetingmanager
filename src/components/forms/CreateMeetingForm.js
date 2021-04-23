@@ -70,7 +70,7 @@ const CreateMeetingForm = ({createNewMeeting}) => {
                         <Form.Check inline label="Thur" type={type} id={`inline-${type}-thur`} onChange={e => setThurs(e.target.checked)} value={thurs}/>
                         <Form.Check inline label="Fri" type={type} id={`inline-${type}-fri`} onChange={e => setFri(e.target.checked)} value={fri}/>
                         <Form.Check inline label="Sat" type={type} id={`inline-${type}-sat`} onChange={e => setSat(e.target.checked)} value={sat}/>
-                        <Form.Check inline label="Sun" type={type} id={`inline-${type}-sun`} onChange={e => setSun(e.target.checked)} value={sun}/> */} */}
+                        <Form.Check inline label="Sun" type={type} id={`inline-${type}-sun`} onChange={e => setSun(e.target.checked)} value={sun}/> */}
                         </div>
                     ))}
                 </Form.Group>

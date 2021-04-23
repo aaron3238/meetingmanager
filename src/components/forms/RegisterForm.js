@@ -116,21 +116,22 @@ export default function Register({ setToken }) {
             <div style={{ padding: "1rem" }}>
                 <Form onSubmit={submit}>
                     <h2>Register</h2>
+                    <p style={{color: "red"}}>All fields are required.</p>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>
-                            Email
+                            <div> Email <span style={{color: "red"}}> * </span></div> 
                         </Form.Label>
                         <Form.Control type="email" placeholder="someone@somewhere.com" value={email} onChange={e => setEmail(e.target.value)} id="email"/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>
-                            Full Name(required)
+                            <div> Full Name <span style={{color: "red"}}> * </span></div>
                         </Form.Label>
                         <Form.Control type="text" placeholder="John Smith" value={fullName} onChange={e => setfullName(e.target.value)} id="fullName"/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>
-                            Password
+                            <div> Password <span style={{color: "red"}}> * </span></div> 
                         </Form.Label>
                         <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
                     </Form.Group>

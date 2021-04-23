@@ -36,21 +36,9 @@ export default function Register({ setToken }) {
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [hash, setHash] = React.useState('');
-    const [salt, setSalt] = React.useState('');
     const [fullName, setfullName] = React.useState('');
     const [showModal, setshowModal] = React.useState(false);
     const [showAlert, setshowAlert] = React.useState(false);
-
-    const createHash = (pass) => {
-
-    setPassword(pass)
-    const tempSalt = crypto.randomBytes(16).toString('hex');
-    const tempHash = crypto.pbkdf2Sync(password, salt, 
-            1000, 64, `sha512`).toString(`hex`);
-    setSalt(tempSalt)
-    setHash(tempHash)
-}
     const submit = async e => {
         e.preventDefault();
         
@@ -110,7 +98,7 @@ export default function Register({ setToken }) {
                         <Form.Label>
                             Password 
                         </Form.Label>
-                        <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => createHash(e.target.value)} id="password"/>
+                        <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
                     </Form.Group>
                     <Button type="submit" variant="primary">
                         Submit

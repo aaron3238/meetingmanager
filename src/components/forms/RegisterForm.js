@@ -64,12 +64,7 @@ export default function Register({ setToken }) {
                 email: email,  
             })
             var x = isnotempty(bar)
-            const token = await registerUser({              // still makes a account , mabe we can use this to tell users about unsescessful login attemps ? or 
-                                                             // about people tryint to get in their account
-                email: "pla@holder.com",
-                name: "placeholder",
-                password: "placeholder"
-            })
+       
             var worked = true
             if(x)
             {
@@ -84,7 +79,7 @@ export default function Register({ setToken }) {
            
             
 
-            console.log(token);
+           
             if(worked){
                 const token = await registerUser({              // still makes a account , mabe we can use this to tell users about unsescessful login attemps ? or 
                                                                  // about people tryint to get in their account

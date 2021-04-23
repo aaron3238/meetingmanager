@@ -29,6 +29,21 @@ function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
+function    isnotempty(str) {
+
+       
+
+    if(str === ""){
+        // console.log("this is an empty string");
+        return false;
+
+    }else{
+        //console.log("this is not an empty string");
+        return true;
+    }
+
+    }
+
 export default function Profile({token}){
 
 
@@ -58,11 +73,12 @@ export default function Profile({token}){
         }
       
         var x = validateEmail(updatedUser.email);
+
      
 
 
 
-        if( x == true)
+        if( x == true || isnotempty(fullName) ||isnotempty(password) || isnotempty(email))
         {
             editUser(updatedUser);
             setshowModal(false);

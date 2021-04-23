@@ -14,7 +14,11 @@ async function registerUser(credentials) {
     return axios.post(config.backendURL + "/user", credentials)
     .then(res => res.data)
 }
+async function echeck(credentials) {
 
+    return axios.post(config.backendURL + "/user/email", credentials)
+    .then(res => res.data)
+}
 
 
 
@@ -25,6 +29,20 @@ function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
+function    isnotempty(str) {
+
+       
+
+        if(str === ""){
+            // console.log("this is an empty string");
+            return false;
+
+        }else{
+            //console.log("this is not an empty string");
+            return true;
+        }
+
+        }
 
 
 
@@ -39,23 +57,42 @@ export default function Register({ setToken }) {
     const [showAlert, setshowAlert] = React.useState(false);
     const submit = async e => {
         e.preventDefault();
+        
 
-        if(validateEmail(email)){
-            const token = await registerUser({
+        if(validateEmail(email) ||isnotempty(fullName) ||isnotempty(password)   ){
+            const bar = await echeck({
+                email: email,  
+            })
+            var x = isnotempty(bar)
+       
+            var worked = true
+            if(x)
+            {
+                alert("email already exists");
+                worked = false
+
+            }
+          
+        
+            
+            
+           
+            
+
+           
+            if(worked){
+                const token = await registerUser({              // still makes a account , mabe we can use this to tell users about unsescessful login attemps ? or 
+                                                                 // about people tryint to get in their account
                 email: email,
                 name: fullName,
                 password: password
-            });
-            console.log(token);
-            if(token){
-                //alert("success");
-                //setToken(token);
+                })
+
                 setshowAlert("true");
                 window.location = ""
                 
-            }else{
-                alert("unsuccessful");
             }
+            
         }else{
             
             alert("Make sure you have a correct email")
@@ -81,19 +118,19 @@ export default function Register({ setToken }) {
                     <h2>Register</h2>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>
-                            Email 
+                            Email
                         </Form.Label>
                         <Form.Control type="email" placeholder="someone@somewhere.com" value={email} onChange={e => setEmail(e.target.value)} id="email"/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>
-                            Full Name
+                            Full Name(required)
                         </Form.Label>
                         <Form.Control type="text" placeholder="John Smith" value={fullName} onChange={e => setfullName(e.target.value)} id="fullName"/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>
-                            Password 
+                            Password
                         </Form.Label>
                         <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
                     </Form.Group>
@@ -112,5 +149,6 @@ export default function Register({ setToken }) {
 }
 
 Register.propTypes = {
+    
   setToken: PropTypes.func.isRequired
 }

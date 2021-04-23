@@ -59,7 +59,7 @@ export default function Register({ setToken }) {
         e.preventDefault();
         
 
-        if(validateEmail(email) ||isnotempty(fullName)  ){
+        if(validateEmail(email) ||isnotempty(fullName) ||isnotempty(password)   ){
             const bar = await echeck({
                 email: email,  
             })

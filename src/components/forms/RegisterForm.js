@@ -91,9 +91,8 @@ export default function Register({ setToken }) {
                 setshowAlert("true");
                 window.location = ""
                 
-            }else{
-                alert("unsuccessful");
             }
+            
         }else{
             
             alert("Make sure you have a correct email")

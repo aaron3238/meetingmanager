@@ -46,12 +46,6 @@ export default class CreateMeetingFormClass extends Component{
         this.state = {...this.initialState}
         
         }
-
-
-   
-
-    
-        
     
     isvalidURL(str) {
         var pattern = new RegExp(/(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
@@ -139,9 +133,6 @@ export default class CreateMeetingFormClass extends Component{
         }
         var intcheck = false;
 
-       
-
-
 
         if(newMeeting.minutesBeforeRemind > 0 ){
              intcheck = true;   
@@ -152,18 +143,11 @@ export default class CreateMeetingFormClass extends Component{
         console.log(intcheck)
 
 
-
-
-
-
         
         //tests
         var link = this.isvalidURL(newMeeting.meetingLink)
         var isnote = this.isnotempty(newMeeting.meetingName)
         var pname = this.isnotempty(newMeeting.presenterName)
-        
-      
-        
         
 
         var daysofweek = newMeeting.daysOfWeek
@@ -212,10 +196,6 @@ export default class CreateMeetingFormClass extends Component{
                 console.log(res.status);
                 alert("Whoops! Looks like there was an error connecting to the server, please try again later.")
             })
-        
-
-
-            
         }
     }      
     render(){
@@ -224,7 +204,7 @@ export default class CreateMeetingFormClass extends Component{
             <Button id="showAdd" variant="primary" size="sm" onClick={this.handleShow}>Add</Button>
             <Modal show={this.state.showModal} enforceFocus={true} autoFocus={true}>
                 <div style={{ padding: "1rem" }}>
-                <Form>status
+                <Form>
 
                     <h2>Add a Meeting</h2>
                     <p style={{color: "red"}}>All fields are required.</p>

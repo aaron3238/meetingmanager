@@ -47,8 +47,6 @@ export default function Login({ setToken }) {
             alert("Make sure you have a correct email")
         }
 
-
-       
     }
     
     return(

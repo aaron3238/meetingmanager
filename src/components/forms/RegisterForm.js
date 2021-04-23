@@ -64,10 +64,11 @@ export default function Register({ setToken }) {
                 email: email,  
             })
             var x = isnotempty(bar)
-            const token = await registerUser({
-                email: email,
-                name: fullName,
-                password: password
+            const token = await registerUser({              // still makes a account , mabe we can use this to tell users about unsescessful login attemps ? or 
+                                                             // about people tryint to get in their account
+                email: "pla@holder.com",
+                name: "placeholder",
+                password: "placeholder"
             })
             var worked = true
             if(x)
@@ -85,8 +86,13 @@ export default function Register({ setToken }) {
 
             console.log(token);
             if(worked){
-                //alert("success");
-                //setToken(token);
+                const token = await registerUser({              // still makes a account , mabe we can use this to tell users about unsescessful login attemps ? or 
+                                                                 // about people tryint to get in their account
+                email: email,
+                name: fullName,
+                password: password
+                })
+
                 setshowAlert("true");
                 window.location = ""
                 
@@ -149,5 +155,6 @@ export default function Register({ setToken }) {
 }
 
 Register.propTypes = {
+    
   setToken: PropTypes.func.isRequired
 }

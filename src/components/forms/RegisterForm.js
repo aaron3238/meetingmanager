@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/Modal'
 import config from "../../config.json"
 import PropTypes from 'prop-types';
 import Alert from 'react-bootstrap/Alert'
+import crypto, { createHash } from 'crypto';
 
 var testpass = false;
 async function registerUser(credentials) {
@@ -29,6 +30,7 @@ function validateEmail(email) {
 
 
 
+
 export default function Register({ setToken }) {
 
 
@@ -39,8 +41,19 @@ export default function Register({ setToken }) {
     const [fullName, setfullName] = React.useState('');
     const [showModal, setshowModal] = React.useState(false);
     const [showAlert, setshowAlert] = React.useState(false);
+
+    const createHash = (pass) => {
+
+    setPassword(pass)
+    const tempSalt = crypto.randomBytes(16).toString('hex');
+    const tempHash = crypto.pbkdf2Sync(password, salt, 
+            1000, 64, `sha512`).toString(`hex`);
+    setSalt(tempSalt)
+    setHash(tempHash)
+}
     const submit = async e => {
         e.preventDefault();
+        
 
         if(validateEmail(email)){
             const token = await registerUser({
@@ -97,7 +110,7 @@ export default function Register({ setToken }) {
                         <Form.Label>
                             Password 
                         </Form.Label>
-                        <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => setPassword(e.target.value)} id="password"/>
+                        <Form.Control type="password" placeholder="Enter your password..." value={password} onChange={e => createHash(e.target.value)} id="password"/>
                     </Form.Group>
                     <Button type="submit" variant="primary">
                         Submit

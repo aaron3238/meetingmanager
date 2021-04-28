@@ -6,6 +6,7 @@ import {useAuthDataContext} from "../context/AuthContext.js"
 import Modal from 'react-bootstrap/Modal'
 import config from "../../config.json"
 import PropTypes from 'prop-types';
+import crypto from 'crypto';
 var testfail = false;
 async function loginUser(credentials) {
     return axios.post(config.backendURL + "/user/login", credentials)

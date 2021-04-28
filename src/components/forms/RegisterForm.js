@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/Modal'
 import config from "../../config.json"
 import PropTypes from 'prop-types';
 import Alert from 'react-bootstrap/Alert'
+import crypto, { createHash } from 'crypto';
 
 var testpass = false;
 async function registerUser(credentials) {
@@ -43,6 +44,7 @@ function    isnotempty(str) {
         }
 
         }
+
 
 
 
